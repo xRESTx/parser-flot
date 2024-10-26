@@ -21,7 +21,7 @@ public class Parser {
             String hrefValue = element.getAttribute("href");
             System.out.println("Значение href: " + hrefValue);
             webDriver.get(hrefValue);
-
+            WebElement element = webDriver.findElements(By.className("catalog-element-description catalog-element-description-preview mt-4"));
         }
 
         webDriver.quit();
