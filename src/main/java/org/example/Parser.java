@@ -14,7 +14,6 @@ public class Parser {
     public void Course1(String args){
         System.out.println("ну чтож, начнем");
         WebDriver webDriver = new ChromeDriver();
-
         webDriver.get(args);
         List<WebElement> elements = webDriver.findElements(By.xpath("//*"));
         StringBuilder allText = new StringBuilder();
