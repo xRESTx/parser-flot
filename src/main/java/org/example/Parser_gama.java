@@ -1,7 +1,6 @@
 package org.example;
 
 import java.util.List;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
@@ -10,7 +9,6 @@ import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.NoSuchElementException;
-import java.util.Set;
 
 public class Parser_gama {
     public void Course(String url) {

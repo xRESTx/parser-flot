@@ -1,14 +1,6 @@
 package org.example;
 
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -42,9 +34,7 @@ public class Main {
         }
 
 
-
-
-        //parsing with https://doninturflot.com/catalog/cruises-from-rostov_on_don/to-rostov_on_don/
+//        //parsing with https://doninturflot.com/catalog/cruises-from-rostov_on_don/to-rostov_on_don/
 //        Parser parser = new Parser();
 //        FileWriter fileWriter = new FileWriter("cruises.txt");
 //        //запуск одного resulta
