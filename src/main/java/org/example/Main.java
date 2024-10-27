@@ -6,8 +6,8 @@ public class Main {
         System.setProperty("webdriver.chrome.driver", "geckodriver-v0.35.0-win64\\geckodriver.exe");
         Parser parser = new Parser();
         parser.Course1("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/");
-//        for (int numberPage = 2; numberPage<23; numberPage++){
-//            parser.Course1("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/?PAGEN_1="+numberPage);
-//        }
+        for (int numberPage = 2; numberPage<23; numberPage++){
+            parser.Course1("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/?PAGEN_1="+numberPage);
+        }
     }
 }

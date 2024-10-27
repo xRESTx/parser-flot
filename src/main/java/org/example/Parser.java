@@ -22,7 +22,6 @@ public class Parser {
         WebDriver webDriver = new FirefoxDriver();
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("cruises.txt"))) {
-            writer.write("Название круиза,Описание круиза,Даты круиза,Ссылка на покупку,Первый день,Последний день\n");
 
             webDriver.get(url);
             List<WebElement> cruiseItems = webDriver.findElements(By.cssSelector(".d-flex.flex-wrap.gap-3.justify-content-center"));
