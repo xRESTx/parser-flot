@@ -11,9 +11,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Set;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
 
 public class Parser {
     public void Course1(String url) {
@@ -21,23 +18,20 @@ public class Parser {
         Format format = new Format();
         WebDriver webDriver = new FirefoxDriver();
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cruises.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cruises.txt",true))) {
 
             webDriver.get(url);
             List<WebElement> cruiseItems = webDriver.findElements(By.cssSelector(".d-flex.flex-wrap.gap-3.justify-content-center"));
 
             for (WebElement item : cruiseItems) {
                 try {
-                    WebElement name = item.findElement(By.className("catalog-section-item-teplohod"));
-                    String cruiseName = name.getText();
-
                     WebElement description = item.findElement(By.className("catalog-section-item-description-preview"));
                     String cruiseDescription = description.getText();
 
                     WebElement dates = item.findElement(By.className("cruise-properties-dates"));
                     String cruiseDates = dates.getText();
 
-                    WebElement purchaseButton = item.findElement(By.cssSelector(".catalog-section-item-purchase-button.catalog-section-item-purchase-button-detail.intec-button"));
+                    WebElement purchaseButton = item.findElement(By.cssSelector(".catalog-section-item-name-wrapper"));
                     String purchaseLink = purchaseButton.getAttribute("href");
 
                     ((JavascriptExecutor) webDriver).executeScript("window.open('" + purchaseLink + "', '_blank');");
@@ -52,6 +46,14 @@ public class Parser {
                         }
                     }
                     Thread.sleep(5000); // Задержка для полной загрузки страницы
+                    
+                    List<WebElement> teplohodItem = webDriver.findElements(By.className("catalog-element-information-teplohod"));
+                    String cruiseName = "";
+                    for (WebElement item2 : teplohodItem){
+                        WebElement name = item2.findElement(By.cssSelector(".catalog-element-information-teplohod a"));
+                            cruiseName = name.getText();
+                    }
+                    
 
                     List<WebElement> routeDays = webDriver.findElements(By.className("catalog-element-information-route-day"));
                     String firstDay = "", lastDay = "";
@@ -68,7 +70,7 @@ public class Parser {
                             ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});", lastToggleLink);
 
                             // Ожидание загрузки данных о последнем дне после клика
-                            Thread.sleep(1500);
+                            Thread.sleep(2500);
                             lastToggleLink.click();
                             List<WebElement> routeDay = webDriver.findElements(By.className("catalog-element-information-route-day"));
                             WebElement lastDayElement = routeDay.get(routeDays.size() - 1).findElement(By.cssSelector(".time-table span"));

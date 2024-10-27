@@ -33,8 +33,8 @@ public class Format {
         String paddedText4 = String.format("%-" + 10 + "s",endDate);
         String paddedText5 = String.format("%-" + 5 + "s",lastDay);
 
-        String replacedDescription = cruiseDescription.replace("-", "_");
+        String replacedDescription = cruiseDescription.replace(" – ", "_");
         String paddedText6 = String.format("%-" + 130 + "s",replacedDescription);
-        writer.write(String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\n", paddedText1, paddedText2, paddedText3, paddedText4, paddedText5, paddedText6,purchaseLink));
+        writer.write(String.format("%s\t%s %s\t%s %s\t%s\t%s\n", paddedText1, paddedText2, paddedText3, paddedText4, paddedText5, paddedText6,purchaseLink));
     }
 }
