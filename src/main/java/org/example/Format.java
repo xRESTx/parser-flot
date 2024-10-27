@@ -37,4 +37,11 @@ public class Format {
         String paddedText6 = String.format("%-" + 130 + "s",replacedDescription);
         writer.write(String.format("%s\t%s %s\t%s %s\t%s\t%s\n", paddedText1, paddedText2, paddedText3, paddedText4, paddedText5, paddedText6,purchaseLink));
     }
+
+    static void FormatGamaFromTXT(String cruiseName, String cruiseDescription, String purchaseLink, String firstDay, String lastDay, BufferedWriter writer) throws IOException {
+        String replacedDescription = cruiseDescription.replace(" — ", "_");
+        String replacedFirstDay = firstDay.replace("c ", "").replaceAll(" \\(.*?\\)", "");
+        String replacedLastDay = lastDay.replace("по ", "").replaceAll(" \\(.*?\\)", "");
+        writer.write(String.format("%s\t%s\t%s\t%s\t%s\n", cruiseName, replacedFirstDay, replacedLastDay, replacedDescription,purchaseLink));
+    }
 }
