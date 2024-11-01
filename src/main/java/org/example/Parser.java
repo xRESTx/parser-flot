@@ -1,7 +1,7 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,8 +10,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.util.NoSuchElementException;
-import java.util.Set;
 
 public class Parser {
     public void Course1(String url) {
@@ -114,7 +112,6 @@ public class Parser {
         System.out.println("Начинаем парсинг данных...");
         Format format = new Format();
         WebDriver webDriver = new FirefoxDriver();
-
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("cruises.txt",true))) {
 
             webDriver.get(url);
@@ -124,7 +121,6 @@ public class Parser {
                 try {
                     WebElement description = item.findElement(By.className("catalog-section-item-description-preview"));
                     String cruiseDescription = description.getText();
-
 //                    НАХУЙ НЕ НАДО
 //                    WebElement dates = item.findElement(By.className("cruise-properties-dates"));
 //                    String cruiseDates = dates.getText();
@@ -136,7 +132,6 @@ public class Parser {
 
                     String originalTab = webDriver.getWindowHandle();
                     Set<String> allTabs = webDriver.getWindowHandles();
-
                     for (String tab : allTabs) {
                         if (!tab.equals(originalTab)) {
                             webDriver.switchTo().window(tab);
@@ -148,12 +143,11 @@ public class Parser {
                     WebElement teplohodItem = webDriver.findElement(By.className("catalog-element-information-teplohod"));
                     String cruiseName = teplohodItem.getText();
 
-                    String []city= new String[]{};
-                    String []timeIn = new String[]{};
-                    String []timeOut = new String[]{};
+                    ArrayList<String> city = new ArrayList<>();
+                    ArrayList<String> timeIn = new ArrayList<>();
+                    ArrayList<String> timeOut = new ArrayList<>();
                     List<WebElement> routeDays = webDriver.findElements(By.cssSelector(".catalog-element-information-route-day"));
                     String firstDay = "", lastDay = "";
-
                     if (!routeDays.isEmpty()) {
                         try {
                             WebElement firstDayElement = routeDays.get(0).findElement(By.cssSelector(".toggle-link"));
@@ -161,8 +155,8 @@ public class Parser {
 
                             firstDayElement = routeDays.get(0).findElement(By.cssSelector(".time-table span"));
                             firstDay = firstDayElement.getText();
-                            System.out.println(firstDay);
                             for(int numberDay = 1; numberDay<routeDays.size(); numberDay++){
+                                System.out.println("TYT2");
                                 // Указатель на клик
                                 WebElement ToggleLink = routeDays.get(numberDay).findElement(By.className("toggle-link"));
                                 //Скролим
@@ -173,57 +167,90 @@ public class Parser {
                                 ToggleLink.click();
                                 ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView(true);", ToggleLink);
                             }
-                            List<WebElement> routeTime = webDriver.findElements(By.cssSelector("toggle-link"));
-
-//                            for (WebElement element : routeTime) {
-//                                List<WebElement> timeSpan = element.findElements(By.tagName("span"));
-//                                for(WebElement spanElement : timeSpan){
-//                                    String temp = spanElement.getText();
-//                                    System.out.println("Время: " + temp);
-//                                }
-//                            }
-
-
 
                             List<WebElement> FirstElement = webDriver.findElements(By.cssSelector(".catalog-element-information-route-day"));
                             for(WebElement second : FirstElement){
                                 List<WebElement> elements = second.findElements(By.cssSelector(".toggle-link"));
                                 for (WebElement element : elements) {
 
+
                                     String temp = element.getText();
 
                                     String[] parts = temp.split("\n");
+                                    String[] part = parts[0].split(": ");
+                                    String par = part[1];
+
                                     String dateStr = parts[1].split(",")[0];
                                     String formattedResult = String.format("%s", dateStr);
-                                    System.out.println(formattedResult);
-                                    List<WebElement> timeSpan = second.findElements(By.cssSelector(".time-table p span"));
-                                    for(WebElement spanElement : timeSpan){
-                                        String temp1 = spanElement.getText();
-                                        System.out.println("Время: " + temp1);
+                                    List<WebElement> timeSpan = second.findElements(By.cssSelector(".time-table p"));
+                                    List<WebElement> grid = second.findElements(By.cssSelector(".intec-grid.intec-grid-wrap.intec-grid-i-10"));
+                                    if(grid.size()>1){
+                                        List<WebElement> intec = second.findElements(By.cssSelector(".intec-grid-item-1.city-name"));
+                                        for(WebElement inte : intec){
+                                            city.add(inte.getText());
+                                            System.out.println("Город: " + inte.getText());
+
+                                            for(WebElement spanElement : timeSpan){
+                                                String temp1 = spanElement.getText();
+                                                String temp2 = temp1.split("\n")[0];
+                                                String temp3 = temp1.split("\n")[1];
+                                                if (temp2.length() == 13) {
+                                                    System.out.println("Начало круиза: " + temp3);
+                                                    timeOut.add(formattedResult + " " + temp3);
+                                                    System.out.println(formattedResult + " " + temp3);
+                                                }
+                                                if (temp2.length() == 8) {
+                                                    System.out.println("Прибытие: " + temp3);
+                                                    timeIn.add(formattedResult + " " + temp3);
+                                                    System.out.println(formattedResult + " " + temp3);
+                                                }
+                                                if (temp2.length() == 11) {
+                                                    System.out.println("Отправление: " + temp3);
+                                                    timeOut.add(formattedResult + " " + temp3);
+                                                    System.out.println(formattedResult + " " + temp3);
+                                                }
+                                                if (temp2.length() == 17) {
+                                                    System.out.println("Завершение круиза: " + temp3);
+                                                    timeIn.add(formattedResult + " " + temp3);
+                                                    System.out.println(formattedResult + " " + temp3);
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        city.add(par);
+                                        System.out.println("Город: " + par);
+                                        for(WebElement spanElement : timeSpan){
+                                            String temp1 = spanElement.getText();
+                                            String temp2 = temp1.split("\n")[0];
+                                            String temp3 = temp1.split("\n")[1];
+                                            if (temp2.length() == 13) {
+                                                System.out.println("Начало круиза: " + temp3);
+                                                timeOut.add(formattedResult + " " + temp3);
+
+                                                System.out.println(formattedResult + " " + temp3);
+                                            }
+                                            if (temp2.length() == 8) {
+                                                System.out.println("Прибытие: " + temp3);
+                                                timeIn.add(formattedResult + " " + temp3);
+                                                System.out.println(formattedResult + " " + temp3);
+                                            }
+                                            if (temp2.length() == 11) {
+                                                System.out.println("Отправление: " + temp3);
+                                                timeOut.add(formattedResult + " " + temp3);
+                                                System.out.println(formattedResult + " " + temp3);
+                                            }
+                                            if (temp2.length() == 17) {
+                                                System.out.println("Завершение круиза: " + temp3);
+                                                timeIn.add(formattedResult + " " + temp3);
+                                                System.out.println(formattedResult + " " + temp3);
+                                            }
+
+                                        }
                                     }
+
+
                                 }
                             }
-
-
-
-
-
-//                            List<WebElement> routeDay = webDriver.findElements(By.cssSelector(".toggle-link"));
-//                            for (WebElement element : routeDay) {
-//
-//                                String temp = element.getText();
-//                                System.out.println("Город: " + temp);
-//
-//                                // Разделяем строку на три части
-//                                String[] parts = temp.split("\n");
-//                                // Извлекаем город
-//                                String cityTemp = parts[0].substring(parts[0].indexOf(":") + 1).trim();
-//                                // Извлекаем дату
-//                                String dateStr = parts[1].split(",")[0];
-//                                // Форматируем результат
-//                                String formattedResult = String.format("%s %s", cityTemp, dateStr);
-//                                System.out.println(formattedResult);
-//                            }
                         } catch (Exception e) {
                             System.out.println("Ошибка при извлечении данных: " + e.getMessage());
                         }
@@ -253,4 +280,5 @@ public class Parser {
             webDriver.quit();
         }
     }
+
 }

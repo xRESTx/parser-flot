@@ -2,6 +2,8 @@ package org.example;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Format {
     void FormatFromTXT(String cruiseName,String cruiseDescription,String cruiseDates,String purchaseLink,String firstDay,String lastDay,BufferedWriter writer) throws IOException {
@@ -43,12 +45,12 @@ public class Format {
         String replacedLastDay = lastDay.replace("по ", "").replaceAll(" \\(.*?\\)", "");
         writer.write(String.format("%s\t%s\t%s\t%s\t%s\n", cruiseName, replacedFirstDay, replacedLastDay, replacedDescription,purchaseLink));
     }
-    static void FormatDonInturStopFromTXT(String cruiseName, String purchaseLink, String[] city, String[] timeIn, String[] timeOut, BufferedWriter writer) throws IOException {
+    static void FormatDonInturStopFromTXT(String cruiseName, String purchaseLink, ArrayList<String> city, ArrayList<String> timeIn, ArrayList<String> timeOut, BufferedWriter writer) throws IOException {
 //        String replacedFirstDay = firstDay.replace("c ", "").replaceAll(" \\(.*?\\)", "");
 //        String replacedLastDay = lastDay.replace("по ", "").replaceAll(" \\(.*?\\)", "");
-        writer.write(String.format("%s\t%s\t%s\t%s\t%s\n", cruiseName, purchaseLink, city[0], timeIn[0], timeOut[0]));
-        for(int numberDay = 1; numberDay < city.length; numberDay++){
-            writer.write(String.format("\t\t%s\t%s\t%s\n", city[numberDay], timeIn[numberDay],timeOut[numberDay]));
+        writer.write(String.format("%s\t%s\t%s\t%s\t%s\n", cruiseName, purchaseLink, city.get(0), timeIn.get(0), timeOut.get(0)));
+        for(int numberDay = 1; numberDay < city.size(); numberDay++){
+            writer.write(String.format("\t\t%s\t%s\t%s\n", city.get(numberDay), timeIn.get(numberDay),timeOut.get(numberDay)));
         }
     }
 }
