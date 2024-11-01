@@ -43,4 +43,12 @@ public class Format {
         String replacedLastDay = lastDay.replace("по ", "").replaceAll(" \\(.*?\\)", "");
         writer.write(String.format("%s\t%s\t%s\t%s\t%s\n", cruiseName, replacedFirstDay, replacedLastDay, replacedDescription,purchaseLink));
     }
+    static void FormatDonInturStopFromTXT(String cruiseName, String purchaseLink, String[] city, String[] timeIn, String[] timeOut, BufferedWriter writer) throws IOException {
+//        String replacedFirstDay = firstDay.replace("c ", "").replaceAll(" \\(.*?\\)", "");
+//        String replacedLastDay = lastDay.replace("по ", "").replaceAll(" \\(.*?\\)", "");
+        writer.write(String.format("%s\t%s\t%s\t%s\t%s\n", cruiseName, purchaseLink, city[0], timeIn[0], timeOut[0]));
+        for(int numberDay = 1; numberDay < city.length; numberDay++){
+            writer.write(String.format("\t\t%s\t%s\t%s\n", city[numberDay], timeIn[numberDay],timeOut[numberDay]));
+        }
+    }
 }
