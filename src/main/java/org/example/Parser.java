@@ -173,22 +173,57 @@ public class Parser {
                                 ToggleLink.click();
                                 ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView(true);", ToggleLink);
                             }
-                            List<WebElement> routeTime = webDriver.findElements(By.cssSelector(".catalog-element-information-route-day .time-table"));
-                            for (WebElement element : routeTime) {
-                                List<WebElement> timeSpan = element.findElements(By.tagName("span"));
-                                for(WebElement spanElement : timeSpan){
-                                    String temp = spanElement.getText();
-                                    System.out.println("Время: " + temp);
+                            List<WebElement> routeTime = webDriver.findElements(By.cssSelector("toggle-link"));
+
+//                            for (WebElement element : routeTime) {
+//                                List<WebElement> timeSpan = element.findElements(By.tagName("span"));
+//                                for(WebElement spanElement : timeSpan){
+//                                    String temp = spanElement.getText();
+//                                    System.out.println("Время: " + temp);
+//                                }
+//                            }
+
+
+
+                            List<WebElement> FirstElement = webDriver.findElements(By.cssSelector(".catalog-element-information-route-day"));
+                            for(WebElement second : FirstElement){
+                                List<WebElement> elements = second.findElements(By.cssSelector(".toggle-link"));
+                                for (WebElement element : elements) {
+
+                                    String temp = element.getText();
+
+                                    String[] parts = temp.split("\n");
+                                    String dateStr = parts[1].split(",")[0];
+                                    String formattedResult = String.format("%s", dateStr);
+                                    System.out.println(formattedResult);
+                                    List<WebElement> timeSpan = second.findElements(By.cssSelector(".time-table p span"));
+                                    for(WebElement spanElement : timeSpan){
+                                        String temp1 = spanElement.getText();
+                                        System.out.println("Время: " + temp1);
+                                    }
                                 }
                             }
 
-                            List<WebElement> routeDay = webDriver.findElements(By.cssSelector(".toggle-link"));
-                            for (WebElement element : routeDay) {
 
-                                String temp = element.getText();
-                                System.out.println("Город: " + temp);
 
-                            }
+
+
+//                            List<WebElement> routeDay = webDriver.findElements(By.cssSelector(".toggle-link"));
+//                            for (WebElement element : routeDay) {
+//
+//                                String temp = element.getText();
+//                                System.out.println("Город: " + temp);
+//
+//                                // Разделяем строку на три части
+//                                String[] parts = temp.split("\n");
+//                                // Извлекаем город
+//                                String cityTemp = parts[0].substring(parts[0].indexOf(":") + 1).trim();
+//                                // Извлекаем дату
+//                                String dateStr = parts[1].split(",")[0];
+//                                // Форматируем результат
+//                                String formattedResult = String.format("%s %s", cityTemp, dateStr);
+//                                System.out.println(formattedResult);
+//                            }
                         } catch (Exception e) {
                             System.out.println("Ошибка при извлечении данных: " + e.getMessage());
                         }
