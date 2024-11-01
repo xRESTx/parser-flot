@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -162,31 +163,31 @@ public class Parser {
                             firstDay = firstDayElement.getText();
                             System.out.println(firstDay);
                             for(int numberDay = 1; numberDay<routeDays.size(); numberDay++){
-
                                 // Указатель на клик
                                 WebElement ToggleLink = routeDays.get(numberDay).findElement(By.className("toggle-link"));
-
                                 //Скролим
                                 ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});", ToggleLink);
-
                                 // Ожидание загрузки данных о последнем дне после клик
                                 Thread.sleep(1000);
                                 // Кликаем для раскрытия данных
                                 ToggleLink.click();
-                                List<WebElement> routeDay = webDriver.findElements(By.cssSelector(".catalog-element-information-route-day .time-table p"));
-                                String label = "";
-                                for (WebElement element : routeDay) {
-                                    label = element.getText();
-                                    if (label.contains("Прибытие") || label.contains("Отправление") || label.contains("Начало круиза") || label.contains("Завершение круиза")) {
-                                        WebElement timeSpan = element.findElement(By.tagName("span"));
-                                        String temp = timeSpan.getText();
-                                        System.out.println("Время: " + temp);
-                                    }
-                                }
-                                System.out.println(label);
-//                                    WebElement lastDayElement = routeDay.get(numberDay).findElement(By.cssSelector(".time-table span"));
                                 ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView(true);", ToggleLink);
-//                                lastDay = lastDayElement.getText();
+                            }
+                            List<WebElement> routeTime = webDriver.findElements(By.cssSelector(".catalog-element-information-route-day .time-table"));
+                            for (WebElement element : routeTime) {
+                                List<WebElement> timeSpan = element.findElements(By.tagName("span"));
+                                for(WebElement spanElement : timeSpan){
+                                    String temp = spanElement.getText();
+                                    System.out.println("Время: " + temp);
+                                }
+                            }
+
+                            List<WebElement> routeDay = webDriver.findElements(By.cssSelector(".toggle-link"));
+                            for (WebElement element : routeDay) {
+
+                                String temp = element.getText();
+                                System.out.println("Город: " + temp);
+
                             }
                         } catch (Exception e) {
                             System.out.println("Ошибка при извлечении данных: " + e.getMessage());
