@@ -3,19 +3,23 @@ package org.example;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Main {
+public class Main{
+
     public static void main(String[] args) throws IOException {
         System.setProperty("webdriver.chrome.driver", "geckodriver-v0.35.0-win64\\geckodriver.exe");
 
         Parser parser = new Parser();
-        FileWriter fileWriter = new FileWriter("cruises.txt");
         //запуск одного resulta
-//        parser.Course2("https://doninturflot.com/catalog/cruises-from-rostov_on_don/to-moscow/date-from-01.01.2025-to-31.12.2025/ship-maksim_litvinov/");
-        //прогон всех рейсов 2025 года
-        for (int numberPage = 1; numberPage<23; numberPage++){
-            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/?PAGEN_1="+numberPage);
+        int NumberFile=0;
+        for (int numberPage = 1; numberPage<3; numberPage++){
+            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/ship-shevthenko_aleksandra/?PAGEN_1="+numberPage,NumberFile);
         }
-
+//        parser.Course2("https://doninturflot.com/catalog/cruises-from-rostov_on_don/to-rostov_on_don/ship-volga_star/",NumberFile);
+//        //прогон всех рейсов 2025 года
+//        NumberFile++;
+//        for (int numberPage = 1; numberPage<23; numberPage++){
+//            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/?PAGEN_1="+numberPage,NumberFile);
+//        }
 
 
 

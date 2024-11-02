@@ -44,7 +44,12 @@ public class Parser {
                             break;
                         }
                     }
-                    Thread.sleep(5000); // Задержка для полной загрузки страницы
+                    ((JavascriptExecutor) webDriver).executeScript(
+                            "window.onload = function() { " +
+                                    "   console.log('Страница загружена.'); " +
+                                    "   document.readyState === 'complete'; " +
+                                    "};");
+
 
                     List<WebElement> teplohodItem = webDriver.findElements(By.className("catalog-element-information-teplohod"));
                     String cruiseName = "";
@@ -101,18 +106,18 @@ public class Parser {
                 }
             }
             System.out.println("Данные успешно записаны в файл cruises.txt");
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             webDriver.quit();
         }
     }
 
-    public void Course2(String url) {
+    public void Course2(String url,int NumberFile) {
         System.out.println("Начинаем парсинг данных...");
         Format format = new Format();
         WebDriver webDriver = new FirefoxDriver();
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cruises.txt",true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cruises"+NumberFile+".txt",true))) {
 
             webDriver.get(url);
             List<WebElement> cruiseItems = webDriver.findElements(By.cssSelector(".d-flex.flex-wrap.gap-3.justify-content-center"));
@@ -161,7 +166,7 @@ public class Parser {
                                 //Скролим
                                 ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});", ToggleLink);
                                 // Ожидание загрузки данных о последнем дне после клик
-                                Thread.sleep(500);
+                                Thread.sleep(1000);
                                 // Кликаем для раскрытия данных
                                 ToggleLink.click();
                                 ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView(true);", ToggleLink);
@@ -249,7 +254,7 @@ public class Parser {
                                             }
                                             if (temp2.length() == 11) {
                                                 if(temp3.length()==17) {
-                                                    city.remove(city.size()-1);
+                                                    city.removeLast();
                                                     continue;
                                                 }
                                                 System.out.println("Отправление: " + temp3);
@@ -272,7 +277,7 @@ public class Parser {
                     }
 
                     // Записываем данные в файл
-                    format.FormatDonInturStopFromTXT(cruiseName, purchaseLink, city, timeIn , timeOut,  writer);
+                    Format.FormatDonInturStopFromTXT(cruiseName, purchaseLink, city, timeIn , timeOut,  writer);
 
                     webDriver.close();
                     webDriver.switchTo().window(originalTab);
