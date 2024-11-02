@@ -132,9 +132,7 @@ public class Parser {
 
                     WebElement purchaseButton = item.findElement(By.cssSelector(".catalog-section-item-name-wrapper"));
                     String purchaseLink = purchaseButton.getAttribute("href");
-
                     ((JavascriptExecutor) webDriver).executeScript("window.open('" + purchaseLink + "', '_blank');");
-
                     String originalTab = webDriver.getWindowHandle();
                     Set<String> allTabs = webDriver.getWindowHandles();
                     for (String tab : allTabs) {
@@ -143,7 +141,7 @@ public class Parser {
                             break;
                         }
                     }
-                    Thread.sleep(5000); // Задержка для полной загрузки страницы
+                    Thread.sleep(7000); // Задержка для полной загрузки страницы
 
                     WebElement teplohodItem = webDriver.findElement(By.className("catalog-element-information-teplohod"));
                     String cruiseName = teplohodItem.getText();
@@ -166,7 +164,7 @@ public class Parser {
                                 //Скролим
                                 ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});", ToggleLink);
                                 // Ожидание загрузки данных о последнем дне после клик
-                                Thread.sleep(1000);
+                                Thread.sleep(1500);
                                 // Кликаем для раскрытия данных
                                 ToggleLink.click();
                                 ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView(true);", ToggleLink);
