@@ -156,13 +156,12 @@ public class Parser {
                             firstDayElement = routeDays.get(0).findElement(By.cssSelector(".time-table span"));
                             firstDay = firstDayElement.getText();
                             for(int numberDay = 1; numberDay<routeDays.size(); numberDay++){
-                                System.out.println("TYT2");
                                 // Указатель на клик
                                 WebElement ToggleLink = routeDays.get(numberDay).findElement(By.className("toggle-link"));
                                 //Скролим
                                 ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});", ToggleLink);
                                 // Ожидание загрузки данных о последнем дне после клик
-                                Thread.sleep(1000);
+                                Thread.sleep(500);
                                 // Кликаем для раскрытия данных
                                 ToggleLink.click();
                                 ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView(true);", ToggleLink);
@@ -172,8 +171,11 @@ public class Parser {
                             for(WebElement second : FirstElement){
                                 List<WebElement> elements = second.findElements(By.cssSelector(".toggle-link"));
                                 for (WebElement element : elements) {
-
-
+                                    WebElement check = second.findElement(By.cssSelector(".time-table"));
+                                    if(check.getText()==""){
+                                        System.out.println("Всё хуйня");
+                                        continue;
+                                    }
                                     String temp = element.getText();
 
                                     String[] parts = temp.split("\n");
@@ -189,15 +191,21 @@ public class Parser {
                                         for(WebElement inte : intec){
                                             city.add(inte.getText());
                                             System.out.println("Город: " + inte.getText());
-
-                                            for(WebElement spanElement : timeSpan){
-                                                String temp1 = spanElement.getText();
+                                            }
+                                        for(WebElement spanElement : grid){
+                                            WebElement span = spanElement.findElement(By.cssSelector(".time-table"));
+                                            List<WebElement> pspan = span.findElements(By.tagName("p"));
+                                            for(WebElement pspa : pspan){
+                                                String temp1 = pspa.getText();
+                                                System.out.println(temp1+"ЭТО 1");
                                                 String temp2 = temp1.split("\n")[0];
                                                 String temp3 = temp1.split("\n")[1];
+                                                System.out.println(temp2.length());
                                                 if (temp2.length() == 13) {
                                                     System.out.println("Начало круиза: " + temp3);
                                                     timeOut.add(formattedResult + " " + temp3);
                                                     System.out.println(formattedResult + " " + temp3);
+                                                    timeIn.add(" ");
                                                 }
                                                 if (temp2.length() == 8) {
                                                     System.out.println("Прибытие: " + temp3);
@@ -205,6 +213,10 @@ public class Parser {
                                                     System.out.println(formattedResult + " " + temp3);
                                                 }
                                                 if (temp2.length() == 11) {
+                                                    if(temp3.length()==17) {
+                                                        city.remove(city.size()-1);
+                                                        continue;
+                                                    }
                                                     System.out.println("Отправление: " + temp3);
                                                     timeOut.add(formattedResult + " " + temp3);
                                                     System.out.println(formattedResult + " " + temp3);
@@ -213,6 +225,7 @@ public class Parser {
                                                     System.out.println("Завершение круиза: " + temp3);
                                                     timeIn.add(formattedResult + " " + temp3);
                                                     System.out.println(formattedResult + " " + temp3);
+                                                    timeOut.add(" ");
                                                 }
                                             }
                                         }
@@ -226,7 +239,7 @@ public class Parser {
                                             if (temp2.length() == 13) {
                                                 System.out.println("Начало круиза: " + temp3);
                                                 timeOut.add(formattedResult + " " + temp3);
-
+                                                timeIn.add(" ");
                                                 System.out.println(formattedResult + " " + temp3);
                                             }
                                             if (temp2.length() == 8) {
@@ -235,6 +248,10 @@ public class Parser {
                                                 System.out.println(formattedResult + " " + temp3);
                                             }
                                             if (temp2.length() == 11) {
+                                                if(temp3.length()==17) {
+                                                    city.remove(city.size()-1);
+                                                    continue;
+                                                }
                                                 System.out.println("Отправление: " + temp3);
                                                 timeOut.add(formattedResult + " " + temp3);
                                                 System.out.println(formattedResult + " " + temp3);
@@ -243,12 +260,10 @@ public class Parser {
                                                 System.out.println("Завершение круиза: " + temp3);
                                                 timeIn.add(formattedResult + " " + temp3);
                                                 System.out.println(formattedResult + " " + temp3);
+                                                timeOut.add(" ");
                                             }
-
                                         }
                                     }
-
-
                                 }
                             }
                         } catch (Exception e) {
@@ -258,13 +273,6 @@ public class Parser {
 
                     // Записываем данные в файл
                     format.FormatDonInturStopFromTXT(cruiseName, purchaseLink, city, timeIn , timeOut,  writer);
-
-                    System.out.println("Название круиза: " + cruiseName);
-                    System.out.println("Описание круиза: " + cruiseDescription);
-                    System.out.println("Ссылка на покупку: " + purchaseLink);
-                    System.out.println("Первый день: " + firstDay);
-                    System.out.println("Последний день: " + lastDay);
-                    System.out.println("------------------------------------");
 
                     webDriver.close();
                     webDriver.switchTo().window(originalTab);

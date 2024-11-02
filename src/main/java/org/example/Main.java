@@ -10,11 +10,11 @@ public class Main {
         Parser parser = new Parser();
         FileWriter fileWriter = new FileWriter("cruises.txt");
         //запуск одного resulta
-        parser.Course2("https://doninturflot.com/catalog/cruises-from-rostov_on_don/to-rostov_on_don/date-from-01.01.2025-to-31.12.2025/ship-shevthenko_aleksandra/");
+//        parser.Course2("https://doninturflot.com/catalog/cruises-from-rostov_on_don/to-moscow/date-from-01.01.2025-to-31.12.2025/ship-maksim_litvinov/");
         //прогон всех рейсов 2025 года
-//        for (int numberPage = 1; numberPage<23; numberPage++){
-//            parser.Course1("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/?PAGEN_1="+numberPage);
-//        }
+        for (int numberPage = 1; numberPage<23; numberPage++){
+            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/?PAGEN_1="+numberPage);
+        }
 
 
 
