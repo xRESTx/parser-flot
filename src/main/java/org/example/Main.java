@@ -8,44 +8,53 @@ public class Main {
         System.setProperty("webdriver.chrome.driver", "geckodriver-v0.35.0-win64\\geckodriver.exe");
 
         Parser parser = new Parser();
-        FileWriter fileWriter = new FileWriter("cruises.txt");
+        int NumberFile = 0;
+
         //запуск одного resulta
 //        parser.Course2("https://doninturflot.com/catalog/cruises-from-rostov_on_don/to-moscow/date-from-01.01.2025-to-31.12.2025/ship-maksim_litvinov/");
         //прогон всех рейсов Александра 2025 года
         for (int numberPage = 1; numberPage<3; numberPage++){
-            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/ship-shevthenko_aleksandra/?PAGEN_1="+numberPage);
+            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/ship-shevthenko_aleksandra/?PAGEN_1="+ numberPage, NumberFile);
         }
+        NumberFile ++;
         //прогон всех рейсов Чехов 2025 года
         for (int numberPage = 1; numberPage<3; numberPage++){
-            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/ship-anton_chehov/?PAGEN_1="+numberPage);
+            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/ship-anton_chehov/?PAGEN_1="+numberPage, NumberFile);
         }
+        NumberFile ++;
         //прогон всех рейсов Лавриненков 2025 года
         for (int numberPage = 1; numberPage<3; numberPage++){
-            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/ship-general_lavrinenkov/?PAGEN_1="+numberPage);
+            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/ship-general_lavrinenkov/?PAGEN_1="+numberPage, NumberFile);
         }
+        NumberFile ++;
         //прогон всех рейсов Стравинский 2025 года
         for (int numberPage = 1; numberPage<2; numberPage++){
-            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/ship-igor_stravinsky/?PAGEN_1="+numberPage);
+            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/ship-igor_stravinsky/?PAGEN_1="+numberPage, NumberFile);
         }
+        NumberFile ++;
         //прогон всех рейсов Тихий дон 2025 года
         for (int numberPage = 1; numberPage<3; numberPage++){
-            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/ship-tikhiy_don_2024/?PAGEN_1="+numberPage);
+            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/ship-tikhiy_don_2024/?PAGEN_1="+numberPage, NumberFile);
         }
+        NumberFile ++;
         //прогон всех рейсов ВолгаСтар 2025 года
         for (int numberPage = 1; numberPage<3; numberPage++){
-            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/ship-volga_star/?PAGEN_1="+numberPage);
+            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/ship-volga_star/?PAGEN_1="+numberPage, NumberFile);
         }
+        NumberFile ++;
         //прогон всех рейсов Иван Бунин 2025 года
         for (int numberPage = 1; numberPage<4; numberPage++){
-            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/ship-ivan_bunin_2024/?PAGEN_1="+numberPage);
+            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/ship-ivan_bunin_2024/?PAGEN_1="+numberPage, NumberFile);
         }
+        NumberFile ++;
         //прогон всех рейсов Максим Литвинов 2025 года
         for (int numberPage = 1; numberPage<3; numberPage++){
-            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/ship-maksim_litvinov/?PAGEN_1="+numberPage);
+            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/ship-maksim_litvinov/?PAGEN_1="+numberPage, NumberFile);
         }
+        NumberFile ++;
         //прогон всех рейсов Сергей Дягилев 2025 года
         for (int numberPage = 1; numberPage<3; numberPage++){
-            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/ship-sergey_dyagilev/?PAGEN_1="+numberPage);
+            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/ship-sergey_dyagilev/?PAGEN_1="+numberPage, NumberFile);
         }
 
 
