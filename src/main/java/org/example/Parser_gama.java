@@ -13,10 +13,10 @@ import java.util.NoSuchElementException;
 public class Parser_gama {
     public void Course(String url) {
         System.out.println("Начинаем парсинг данных...");
-        Format format = new Format();
+//        Format format = new Format();
         WebDriver webDriver = new FirefoxDriver();
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cruises.txt",true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cruises-gama.txt",true))) {
 
             webDriver.get(url);
             List<WebElement> cruiseItems = webDriver.findElements(By.cssSelector(".in-actual"));

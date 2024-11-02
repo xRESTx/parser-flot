@@ -249,7 +249,7 @@ public class Parser {
                                             }
                                             if (temp2.length() == 11) {
                                                 if(temp3.length()==17) {
-                                                    city.remove(city.size()-1);
+                                                    city.removeLast();
                                                     continue;
                                                 }
                                                 System.out.println("Отправление: " + temp3);
@@ -272,7 +272,7 @@ public class Parser {
                     }
 
                     // Записываем данные в файл
-                    format.FormatDonInturStopFromTXT(cruiseName, purchaseLink, city, timeIn , timeOut,  writer);
+                    Format.FormatDonInturStopFromTXT(cruiseName, purchaseLink, city, timeIn , timeOut,  writer);
 
                     webDriver.close();
                     webDriver.switchTo().window(originalTab);
