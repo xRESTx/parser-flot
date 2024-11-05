@@ -41,6 +41,12 @@ public class Parser_Vodohod {
                 WebElement button = webDriver.findElement(By.className("b-rc__view-all-btn"));
                 ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});", button);
                 ((JavascriptExecutor)webDriver).executeScript("arguments[0].click();", button);
+                List<WebElement> check = webDriver.findElements(By.cssSelector(".b-rc__view-all-btn.b-rc__view-all-btn--hide"));
+                while(check.isEmpty()){
+                    System.out.println("Tvar', 30 minut iz-za taby vebal");
+                    ((JavascriptExecutor)webDriver).executeScript("arguments[0].click();", button);
+                    check = webDriver.findElements(By.cssSelector(".b-rc__view-all-btn.b-rc__view-all-btn--hide"));
+                }
                 Thread.sleep(1000);
                 WebElement teplohod = webDriver.findElement(By.cssSelector(".booking__left-item.booking__left-ship"));
                 WebElement pteplohod = teplohod.findElement(By.cssSelector(".booking__i-value"));
@@ -60,8 +66,11 @@ public class Parser_Vodohod {
                         for(WebElement date : dates){
                             String temp1 = date.getText();
                             System.out.println(temp1);
-                            String temp2 = temp1.split("\n")[0];
-                            String temp3 = temp1.split("\n")[1];
+
+                            String[] parts = temp1.split("\n");
+                            String temp2 = parts[0];
+                            String temp3 = parts.length > 1 ? parts[1] : "00:00";
+
                             if (temp2.length() == 5) {
                                 temp3 = temp3.split(" ")[0];
                                 timeDay.add(temp3);
