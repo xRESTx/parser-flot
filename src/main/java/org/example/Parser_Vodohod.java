@@ -32,7 +32,10 @@ public class Parser_Vodohod {
                         break;
                     }
                 }
-
+                Thread.sleep(6000);
+                WebElement button = webDriver.findElement(By.className("b-rc__view-all-btn"));
+                ((JavascriptExecutor)webDriver).executeScript("arguments[0].click();", button);
+                Thread.sleep(3000);
 
 
                 webDriver.close();
