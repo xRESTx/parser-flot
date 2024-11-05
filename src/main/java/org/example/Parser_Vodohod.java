@@ -61,6 +61,7 @@ public class Parser_Vodohod {
 
                         for(WebElement date : dates){
                             String temp1 = date.getText();
+                            System.out.println(temp1);
                             String temp2 = temp1.split("\n")[0];
                             String temp3 = temp1.split("\n")[1];
                             if (temp2.length() == 5) {
