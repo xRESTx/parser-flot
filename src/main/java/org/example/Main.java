@@ -13,7 +13,21 @@ public class Main {
         }
 
 
-        Parser parser = new Parser();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //        int NumberFile = 0;
 //
 //        //запуск одного resulta
@@ -48,7 +62,7 @@ public class Main {
 //            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/ship-volga_star/?PAGEN_1="+numberPage, NumberFile);
 //        }
 //        NumberFile ++;
-//        //прогон всех рейсов Иван Бунин 2025 года
+//        //прогон всех рейсов н Бунин 2025 года
 //        for (int numberPage = 1; numberPage<4; numberPage++){
 //            parser.Course2("https://doninturflot.com/catalog/date-from-01.01.2025-to-31.12.2025/ship-ivan_bunin_2024/?PAGEN_1="+numberPage, NumberFile);
 //        }
