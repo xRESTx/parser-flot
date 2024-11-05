@@ -55,17 +55,10 @@ public class Format {
     }
 
     static void FormatVodohodInturStopFromTXT(String cruiseName, String purchaseLink,ArrayList<String> timeDay, ArrayList<String> city, ArrayList<String> timeIn, ArrayList<String> timeOut, BufferedWriter writer) throws IOException {
-        if(timeIn.size()==0 || timeOut.size()==0){
-            String out = "";
-            writer.write(String.format("%s\t%s\t%s\t%s %s\t%s %s\n", cruiseName, purchaseLink, city.get(0), timeDay.get(0),out, timeDay.get(0),out));
-            for(int numberDay = 1; numberDay < city.size() && numberDay < timeIn.size() && numberDay < timeOut.size(); numberDay++){
-                writer.write(String.format("\t\t%s\t%s %s\t%s %s\n", city.get(numberDay), timeDay.get(numberDay),out, timeDay.get(numberDay),out));
-            }
-            return;
-        }
         writer.write(String.format("%s\t%s\t%s\t%s %s\t%s %s\n", cruiseName, purchaseLink, city.get(0), timeDay.get(0),timeIn.get(0), timeDay.get(0),timeOut.get(0)));
         for(int numberDay = 1; numberDay < city.size() && numberDay < timeIn.size() && numberDay < timeOut.size(); numberDay++){
             writer.write(String.format("\t\t%s\t%s %s\t%s %s\n", city.get(numberDay), timeDay.get(numberDay),timeIn.get(numberDay), timeDay.get(numberDay),timeOut.get(numberDay)));
         }
+        System.out.println("Save, My Lord");
     }
 }

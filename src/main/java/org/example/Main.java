@@ -23,7 +23,7 @@ public class Main {
         }
 
 
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
 
         for (String[] task : tasks) {
             executorService.submit(() -> {

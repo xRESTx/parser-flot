@@ -52,13 +52,13 @@ public class Parser_Vodohod {
                     List<WebElement> bdays = day.findElements(By.cssSelector(".b-day"));
                     int condition = 0;
                     for(WebElement bday : bdays){
-                        city.add("");
                         timeIn.add("");
                         timeOut.add("");
                         timeDay.add("");
                         WebElement acity = bday.findElement(By.cssSelector(".body-content__text-title-main.link"));
                         city.add(acity.getText());
                         List<WebElement> dates = bday.findElements(By.cssSelector(".b-day__grid-item"));
+
                         for(WebElement date : dates){
                             String temp1 = date.getText();
                             String temp2 = temp1.split("\n")[0];
@@ -70,11 +70,12 @@ public class Parser_Vodohod {
                             }
                             if (temp2.length() == 9) {
                                 timeIn.set(condition,temp3);
-                                System.out.println("Прибытие: " + timeIn);
+                                System.out.println("Прибытие: " + timeIn.get(condition));
                             }
                             if (temp2.length() == 12) {
-                                System.out.println("Отправление: " + temp3);
+
                                 timeOut.set(condition,temp3);
+                                System.out.println("Отправление: " + timeOut.get(condition));
                             }
                         }
                         condition++;
