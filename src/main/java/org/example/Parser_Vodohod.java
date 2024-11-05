@@ -19,7 +19,7 @@ public class Parser_Vodohod {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("vodohod.txt",true))) {
             webDriver.get(url);
             Thread.sleep(2000);
-            System.out.println("Начнем...");
+            System.out.println("Okay, let's go");
             List<WebElement> elemets = webDriver.findElements(By.cssSelector(".p-content__inner__wrapper a"));
             for(WebElement elemet : elemets){
                 String strhref  = elemet.getAttribute("href");
@@ -43,7 +43,7 @@ public class Parser_Vodohod {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }finally {
-            System.out.println("Какая-то хуйня");
+            System.out.println("Strange huinya, My Lord");
         }
     }
 }
