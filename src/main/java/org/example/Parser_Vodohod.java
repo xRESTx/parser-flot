@@ -14,10 +14,10 @@ import java.util.List;
 import java.util.Set;
 
 public class Parser_Vodohod {
-    public void Course(String url) {
+    public void Course(String url, String fileName) {
         WebDriver webDriver = new FirefoxDriver();
         Format format = new Format();
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("vodohod.txt",true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName,true))) {
             webDriver.get(url);
             System.out.println("Okay, let's go");
             List<WebElement> elemets = webDriver.findElements(By.cssSelector(".p-content__inner__wrapper a"));
@@ -45,7 +45,6 @@ public class Parser_Vodohod {
                 WebElement teplohod = webDriver.findElement(By.cssSelector(".booking__left-item.booking__left-ship"));
                 WebElement pteplohod = teplohod.findElement(By.cssSelector(".booking__i-value"));
                 String nameTeplohod = pteplohod.getText();
-//                System.out.println(nameTeplohod);
 
                 List<WebElement> days = webDriver.findElements(By.cssSelector(".b-spoiler__content"));
                 for (WebElement day : days){
@@ -54,7 +53,6 @@ public class Parser_Vodohod {
                     for(WebElement bday : bdays){
                         timeIn.add("00:00");
                         timeOut.add("00:00");
-//                        timeDay.add("");
                         WebElement acity = bday.findElement(By.cssSelector(".body-content__text-title-main.link"));
                         city.add(acity.getText());
                         List<WebElement> dates = bday.findElements(By.cssSelector(".b-day__grid-item"));
@@ -67,18 +65,18 @@ public class Parser_Vodohod {
                             if (temp2.length() == 5) {
                                 temp3 = temp3.split(" ")[0];
                                 timeDay.add(temp3);
-                                System.out.println("Дата: " + timeDay.get(condition));
+                                System.out.println("Date: " + timeDay.get(condition));
                             }
                             if (temp2.length() == 9) {
                                 timeIn.removeLast();
                                 timeIn.addLast(temp3);
-                                System.out.println("Прибытие: " + timeIn.get(condition));
+                                System.out.println("timeIn: " + timeIn.get(condition));
                             }
                             if (temp2.length() == 12) {
 
                                 timeOut.removeLast();
                                 timeOut.addLast(temp3);
-                                System.out.println("Отправление: " + timeOut.get(condition));
+                                System.out.println("timeOut: " + timeOut.get(condition));
                             }
                         }
                         condition++;
