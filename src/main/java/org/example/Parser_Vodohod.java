@@ -52,9 +52,9 @@ public class Parser_Vodohod {
                     List<WebElement> bdays = day.findElements(By.cssSelector(".b-day"));
                     int condition = 0;
                     for(WebElement bday : bdays){
-                        timeIn.add("");
-                        timeOut.add("");
-                        timeDay.add("");
+                        timeIn.add("00:00");
+                        timeOut.add("00:00");
+//                        timeDay.add("");
                         WebElement acity = bday.findElement(By.cssSelector(".body-content__text-title-main.link"));
                         city.add(acity.getText());
                         List<WebElement> dates = bday.findElements(By.cssSelector(".b-day__grid-item"));
@@ -65,31 +65,32 @@ public class Parser_Vodohod {
                             String temp3 = temp1.split("\n")[1];
                             if (temp2.length() == 5) {
                                 temp3 = temp3.split(" ")[0];
-                                timeDay.set(condition,temp3);
+                                timeDay.add(temp3);
                                 System.out.println("Дата: " + timeDay.get(condition));
                             }
                             if (temp2.length() == 9) {
-                                timeIn.set(condition,temp3);
+                                timeIn.removeLast();
+                                timeIn.addLast(temp3);
                                 System.out.println("Прибытие: " + timeIn.get(condition));
                             }
                             if (temp2.length() == 12) {
 
-                                timeOut.set(condition,temp3);
+                                timeOut.removeLast();
+                                timeOut.addLast(temp3);
                                 System.out.println("Отправление: " + timeOut.get(condition));
                             }
                         }
                         condition++;
                     }
                 }
-                format.FormatVodohodInturStopFromTXT(nameTeplohod, strhref,timeDay,city,timeIn,timeOut,writer);
+                Thread.sleep(3000);
+                format.FormatVodohodInturStopFromTXT(nameTeplohod, strhref, timeDay, city, timeIn, timeOut, writer);
                 webDriver.close();
                 webDriver.switchTo().window(originalTab);
             }
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }finally {
+        } finally {
             webDriver.manage().deleteAllCookies();
             webDriver.quit();
             System.out.println("Strange huinya, My Lord");
