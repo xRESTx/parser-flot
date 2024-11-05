@@ -115,7 +115,6 @@ public class Parser {
 
     public void Course2(String url,int NumberFile) {
         System.out.println("Начинаем парсинг данных...");
-        Format format = new Format();
         WebDriver webDriver = new FirefoxDriver();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("cruises"+NumberFile+".txt",true))) {
 
@@ -124,17 +123,9 @@ public class Parser {
 
             for (WebElement item : cruiseItems) {
                 try {
-                    WebElement description = item.findElement(By.className("catalog-section-item-description-preview"));
-                    String cruiseDescription = description.getText();
-//                    НАХУЙ НЕ НАДО
-//                    WebElement dates = item.findElement(By.className("cruise-properties-dates"));
-//                    String cruiseDates = dates.getText();
-
                     WebElement purchaseButton = item.findElement(By.cssSelector(".catalog-section-item-name-wrapper"));
                     String purchaseLink = purchaseButton.getAttribute("href");
-
                     ((JavascriptExecutor) webDriver).executeScript("window.open('" + purchaseLink + "', '_blank');");
-
                     String originalTab = webDriver.getWindowHandle();
                     Set<String> allTabs = webDriver.getWindowHandles();
                     for (String tab : allTabs) {
@@ -143,7 +134,7 @@ public class Parser {
                             break;
                         }
                     }
-                    Thread.sleep(5000); // Задержка для полной загрузки страницы
+                    Thread.sleep(7000); // Задержка для полной загрузки страницы
 
                     WebElement teplohodItem = webDriver.findElement(By.className("catalog-element-information-teplohod"));
                     String cruiseName = teplohodItem.getText();
@@ -152,21 +143,15 @@ public class Parser {
                     ArrayList<String> timeIn = new ArrayList<>();
                     ArrayList<String> timeOut = new ArrayList<>();
                     List<WebElement> routeDays = webDriver.findElements(By.cssSelector(".catalog-element-information-route-day"));
-                    String firstDay = "", lastDay = "";
                     if (!routeDays.isEmpty()) {
                         try {
-                            WebElement firstDayElement = routeDays.get(0).findElement(By.cssSelector(".toggle-link"));
-                            firstDay = firstDayElement.getText();
-
-                            firstDayElement = routeDays.get(0).findElement(By.cssSelector(".time-table span"));
-                            firstDay = firstDayElement.getText();
                             for(int numberDay = 1; numberDay<routeDays.size(); numberDay++){
                                 // Указатель на клик
                                 WebElement ToggleLink = routeDays.get(numberDay).findElement(By.className("toggle-link"));
                                 //Скролим
                                 ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});", ToggleLink);
                                 // Ожидание загрузки данных о последнем дне после клик
-                                Thread.sleep(1000);
+                                Thread.sleep(1500);
                                 // Кликаем для раскрытия данных
                                 ToggleLink.click();
                                 ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView(true);", ToggleLink);
@@ -178,7 +163,7 @@ public class Parser {
                                 for (WebElement element : elements) {
                                     WebElement check = second.findElement(By.cssSelector(".time-table"));
                                     if(check.getText()==""){
-                                        System.out.println("Всё хуйня");
+                                        System.out.println("Problema");
                                         continue;
                                     }
                                     String temp = element.getText();

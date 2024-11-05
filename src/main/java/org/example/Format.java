@@ -49,7 +49,7 @@ public class Format {
 //        String replacedFirstDay = firstDay.replace("c ", "").replaceAll(" \\(.*?\\)", "");
 //        String replacedLastDay = lastDay.replace("по ", "").replaceAll(" \\(.*?\\)", "");
         writer.write(String.format("%s\t%s\t%s\t%s\t%s\n", cruiseName, purchaseLink, city.get(0), timeIn.get(0), timeOut.get(0)));
-        for(int numberDay = 1; numberDay < city.size(); numberDay++){
+        for(int numberDay = 1; numberDay < city.size() && numberDay < timeIn.size() && numberDay < timeOut.size(); numberDay++){
             writer.write(String.format("\t\t%s\t%s\t%s\n", city.get(numberDay), timeIn.get(numberDay),timeOut.get(numberDay)));
         }
     }
