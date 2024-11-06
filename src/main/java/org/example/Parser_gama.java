@@ -23,7 +23,6 @@ public class Parser_gama {
 
             for (WebElement item : cruiseItems) {
                 try {
-
                     WebElement description = item.findElement(By.className("in-way-text"));
                     String cruiseDescription = description.getText();
 
