@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class Parser {
     public void Course1(String url) {
-        System.out.println("Начинаем парсинг данных...");
+        System.out.println("Okay, let's go...");
         Format format = new Format();
         WebDriver webDriver = new FirefoxDriver();
 
@@ -66,15 +66,10 @@ public class Parser {
                         try {
                             WebElement firstDayElement = routeDays.get(0).findElement(By.cssSelector(".time-table span"));
                             firstDay = firstDayElement.getText();
-
-                            // Кликаем для раскрытия данных
                             WebElement lastToggleLink = routeDays.get(routeDays.size() - 1).findElement(By.className("toggle-link"));
-
-                            //Скролим
                             ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});", lastToggleLink);
-
-                            // Ожидание загрузки данных о последнем дне после клика
                             Thread.sleep(2500);
+
                             lastToggleLink.click();
                             List<WebElement> routeDay = webDriver.findElements(By.className("catalog-element-information-route-day"));
                             WebElement lastDayElement = routeDay.get(routeDays.size() - 1).findElement(By.cssSelector(".time-table span"));
@@ -82,30 +77,29 @@ public class Parser {
                             lastDay = lastDayElement.getText();
 
                         } catch (Exception e) {
-                            System.out.println("Ошибка при извлечении данных: " + e.getMessage());
+                            System.out.println("Error extraction data: " + e.getMessage());
                         }
                     }
 
-                    // Записываем данные в файл
                     format.FormatFromTXT(cruiseName, cruiseDescription, cruiseDates, purchaseLink, firstDay, lastDay, writer);
-
-
-                    System.out.println("Название круиза: " + cruiseName);
-                    System.out.println("Описание круиза: " + cruiseDescription);
-                    System.out.println("Даты круиза: " + cruiseDates);
-                    System.out.println("Ссылка на покупку: " + purchaseLink);
-                    System.out.println("Первый день: " + firstDay);
-                    System.out.println("Последний день: " + lastDay);
-                    System.out.println("------------------------------------");
+//
+//
+//                    System.out.println("Название круиза: " + cruiseName);
+//                    System.out.println("Описание круиза: " + cruiseDescription);
+//                    System.out.println("Даты круиза: " + cruiseDates);
+//                    System.out.println("Ссылка на покупку: " + purchaseLink);
+//                    System.out.println("Первый день: " + firstDay);
+//                    System.out.println("Последний день: " + lastDay);
+//                    System.out.println("------------------------------------");
 
                     webDriver.close();
                     webDriver.switchTo().window(originalTab);
 
                 } catch (NoSuchElementException e) {
-                    System.err.println("Некоторые элементы не найдены для одного из круизов. Пропускаем...");
+                    System.err.println("Any elements not search for cruise. Skip...");
                 }
             }
-            System.out.println("Данные успешно записаны в файл cruises.txt");
+            System.out.println("Data successful update in cruises.txt");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -114,7 +108,7 @@ public class Parser {
     }
 
     public void Course2(String url,int NumberFile) {
-        System.out.println("Начинаем парсинг данных...");
+        System.out.println("Okay, let's go...");
         WebDriver webDriver = new FirefoxDriver();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("cruises"+NumberFile+".txt",true))) {
 
@@ -146,13 +140,10 @@ public class Parser {
                     if (!routeDays.isEmpty()) {
                         try {
                             for(int numberDay = 1; numberDay<routeDays.size(); numberDay++){
-                                // Указатель на клик
                                 WebElement ToggleLink = routeDays.get(numberDay).findElement(By.className("toggle-link"));
-                                //Скролим
                                 ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});", ToggleLink);
-                                // Ожидание загрузки данных о последнем дне после клик
                                 Thread.sleep(1500);
-                                // Кликаем для раскрытия данных
+
                                 ToggleLink.click();
                                 ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView(true);", ToggleLink);
                             }
@@ -180,25 +171,25 @@ public class Parser {
                                         List<WebElement> intec = second.findElements(By.cssSelector(".intec-grid-item-1.city-name"));
                                         for(WebElement inte : intec){
                                             city.add(inte.getText());
-                                            System.out.println("Город: " + inte.getText());
+                                            System.out.println("City: " + inte.getText());
                                             }
                                         for(WebElement spanElement : grid){
                                             WebElement span = spanElement.findElement(By.cssSelector(".time-table"));
                                             List<WebElement> pspan = span.findElements(By.tagName("p"));
                                             for(WebElement pspa : pspan){
                                                 String temp1 = pspa.getText();
-                                                System.out.println(temp1+"ЭТО 1");
+                                                System.out.println(temp1);
                                                 String temp2 = temp1.split("\n")[0];
                                                 String temp3 = temp1.split("\n")[1];
                                                 System.out.println(temp2.length());
                                                 if (temp2.length() == 13) {
-                                                    System.out.println("Начало круиза: " + temp3);
+                                                    System.out.println("Start cruise: " + temp3);
                                                     timeOut.add(formattedResult + " " + temp3);
                                                     System.out.println(formattedResult + " " + temp3);
                                                     timeIn.add(" ");
                                                 }
                                                 if (temp2.length() == 8) {
-                                                    System.out.println("Прибытие: " + temp3);
+                                                    System.out.println("Input: " + temp3);
                                                     timeIn.add(formattedResult + " " + temp3);
                                                     System.out.println(formattedResult + " " + temp3);
                                                 }
@@ -207,12 +198,12 @@ public class Parser {
                                                         city.remove(city.size()-1);
                                                         continue;
                                                     }
-                                                    System.out.println("Отправление: " + temp3);
+                                                    System.out.println("Output: " + temp3);
                                                     timeOut.add(formattedResult + " " + temp3);
                                                     System.out.println(formattedResult + " " + temp3);
                                                 }
                                                 if (temp2.length() == 17) {
-                                                    System.out.println("Завершение круиза: " + temp3);
+                                                    System.out.println("End cruise: " + temp3);
                                                     timeIn.add(formattedResult + " " + temp3);
                                                     System.out.println(formattedResult + " " + temp3);
                                                     timeOut.add(" ");
@@ -221,19 +212,19 @@ public class Parser {
                                         }
                                     } else {
                                         city.add(par);
-                                        System.out.println("Город: " + par);
+                                        System.out.println("City: " + par);
                                         for(WebElement spanElement : timeSpan){
                                             String temp1 = spanElement.getText();
                                             String temp2 = temp1.split("\n")[0];
                                             String temp3 = temp1.split("\n")[1];
                                             if (temp2.length() == 13) {
-                                                System.out.println("Начало круиза: " + temp3);
+                                                System.out.println("Start cruise: " + temp3);
                                                 timeOut.add(formattedResult + " " + temp3);
                                                 timeIn.add(" ");
                                                 System.out.println(formattedResult + " " + temp3);
                                             }
                                             if (temp2.length() == 8) {
-                                                System.out.println("Прибытие: " + temp3);
+                                                System.out.println("Input: " + temp3);
                                                 timeIn.add(formattedResult + " " + temp3);
                                                 System.out.println(formattedResult + " " + temp3);
                                             }
@@ -242,12 +233,12 @@ public class Parser {
                                                     city.removeLast();
                                                     continue;
                                                 }
-                                                System.out.println("Отправление: " + temp3);
+                                                System.out.println("Output: " + temp3);
                                                 timeOut.add(formattedResult + " " + temp3);
                                                 System.out.println(formattedResult + " " + temp3);
                                             }
                                             if (temp2.length() == 17) {
-                                                System.out.println("Завершение круиза: " + temp3);
+                                                System.out.println("End cruise: " + temp3);
                                                 timeIn.add(formattedResult + " " + temp3);
                                                 System.out.println(formattedResult + " " + temp3);
                                                 timeOut.add(" ");
@@ -257,26 +248,24 @@ public class Parser {
                                 }
                             }
                         } catch (Exception e) {
-                            System.out.println("Ошибка при извлечении данных: " + e.getMessage());
+                            System.out.println("Error extraction data: " + e.getMessage());
                         }
                     }
 
-                    // Записываем данные в файл
                     Format.FormatDonInturStopFromTXT(cruiseName, purchaseLink, city, timeIn , timeOut,  writer);
 
                     webDriver.close();
                     webDriver.switchTo().window(originalTab);
 
                 } catch (NoSuchElementException e) {
-                    System.err.println("Некоторые элементы не найдены для одного из круизов. Пропускаем...");
+                    System.err.println("Any elements not search for cruise. Skip...");
                 }
             }
-            System.out.println("Данные успешно записаны в файл cruises.txt");
+            System.out.println("Data successful update in cruises.txt");
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         } finally {
             webDriver.quit();
         }
     }
-
 }

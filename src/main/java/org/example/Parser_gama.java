@@ -12,8 +12,7 @@ import java.util.NoSuchElementException;
 
 public class Parser_gama {
     public void Course(String url) {
-        System.out.println("Начинаем парсинг данных...");
-//        Format format = new Format();
+        System.out.println("Okay, let's go...");
         WebDriver webDriver = new FirefoxDriver();
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("cruises-gama.txt",true))) {
@@ -27,7 +26,7 @@ public class Parser_gama {
                     String cruiseDescription = description.getText();
 
                     WebElement dates = item.findElement(By.cssSelector(".in-dt span"));
-                    String cruiseDates = dates.getText();
+//                    String cruiseDates = dates.getText();
 
                     List<WebElement> dateDivs = item.findElements(By.cssSelector(".in-dt div"));
                     String startDate = "";
@@ -42,22 +41,21 @@ public class Parser_gama {
                     WebElement name = item.findElement(By.cssSelector(".in-ship-txt a"));
                     String cruiseName = name.getText();
 
-                    // Записываем данные в файл
                     Format.FormatGamaFromTXT(cruiseName, cruiseDescription, purchaseLink, startDate, endDate, writer);
 
-                    System.out.println("Название судна: " + cruiseName);
-                    System.out.println("Описание круиза: " + cruiseDescription);
-                    System.out.println("Даты круиза: " + cruiseDates);
-                    System.out.println("Ссылка на покупку: " + purchaseLink);
-                    System.out.println("Первый день: " + startDate);
-                    System.out.println("Последний день: " + endDate);
-                    System.out.println("------------------------------------");
+//                    System.out.println("Название судна: " + cruiseName);
+//                    System.out.println("Описание круиза: " + cruiseDescription);
+//                    System.out.println("Даты круиза: " + cruiseDates);
+//                    System.out.println("Ссылка на покупку: " + purchaseLink);
+//                    System.out.println("Первый день: " + startDate);
+//                    System.out.println("Последний день: " + endDate);
+//                    System.out.println("------------------------------------");
 
                 } catch (NoSuchElementException e) {
-                    System.err.println("Некоторые элементы не найдены для одного из круизов. Пропускаем...");
+                    System.err.println("Any elements not search for cruise. Skip...");
                 }
             }
-            System.out.println("Данные успешно записаны в файл cruises.txt");
+            System.out.println("Data successful update in cruises.txt");
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {

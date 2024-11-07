@@ -43,7 +43,7 @@ public class Parser_Vodohod {
                 ((JavascriptExecutor)webDriver).executeScript("arguments[0].click();", button);
                 List<WebElement> check = webDriver.findElements(By.cssSelector(".b-rc__view-all-btn.b-rc__view-all-btn--hide"));
                 while(check.isEmpty()){
-                    System.out.println("Tvar', 30 minut iz-za taby vebal");
+                    System.out.println("search button.....");
                     ((JavascriptExecutor)webDriver).executeScript("arguments[0].click();", button);
                     check = webDriver.findElements(By.cssSelector(".b-rc__view-all-btn.b-rc__view-all-btn--hide"));
                 }
@@ -92,7 +92,7 @@ public class Parser_Vodohod {
                     }
                 }
                 Thread.sleep(3000);
-                format.FormatVodohodInturStopFromTXT(nameTeplohod, strhref, timeDay, city, timeIn, timeOut, writer);
+                format.FormatVodohodStopFromTXT(nameTeplohod, strhref, timeDay, city, timeIn, timeOut, writer);
                 webDriver.close();
                 webDriver.switchTo().window(originalTab);
             }
@@ -101,7 +101,7 @@ public class Parser_Vodohod {
         } finally {
             webDriver.manage().deleteAllCookies();
             webDriver.quit();
-            System.out.println("Strange huinya, My Lord");
+            System.out.println("Strange, My Lord");
         }
     }
 }
