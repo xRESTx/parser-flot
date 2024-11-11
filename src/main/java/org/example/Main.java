@@ -9,10 +9,34 @@ import java.util.concurrent.Executors;
 public class Main {
     public static void main(String[] args) throws IOException {
         System.setProperty("webdriver.chrome.driver", "geckodriver-v0.35.0-win64\\geckodriver.exe");
+
+
+        mosturFlot();
 //        vodohod();
 //        doninturflot();
 //        gamma();
         //sCruises();
+    }
+    static public void mosturFlot(){
+        Parser_Mosturflot parserMosturflot = new Parser_Mosturflot();
+        String[] urlsSozv = {
+                "https://www.mosturflot.ru/ships/5/",
+                "https://www.mosturflot.ru/ships/3/",
+                "https://www.mosturflot.ru/ships/11/",
+                "https://www.mosturflot.ru/ships/79/",
+                "https://www.mosturflot.ru/ships/7/",
+                "https://www.mosturflot.ru/ships/2/",
+                "https://www.mosturflot.ru/ships/1/",
+                "https://www.mosturflot.ru/ships/8/",
+                "https://www.mosturflot.ru/ships/9/",
+                "https://www.mosturflot.ru/ships/12/",
+                "https://www.mosturflot.ru/ships/13/",
+                "https://www.mosturflot.ru/ships/14/",
+                "https://www.mosturflot.ru/ships/10/",
+        };
+        for (String url : urlsSozv) {
+            parserMosturflot.Course(url,"mosturflot.txt");
+        }
     }
     static public void sCruises(){
     Parser_sCruises parserSCruises = new Parser_sCruises();
