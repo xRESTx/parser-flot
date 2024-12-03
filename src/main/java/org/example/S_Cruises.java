@@ -14,14 +14,14 @@ import java.util.regex.Pattern;
 import static org.example.Format.*;
 
 public class S_Cruises {
-    public static void main(String[] args) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("s-cruises.txt"))){
+    public void s_cruises(String url) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("s-cruises.txt",true))){
             List<String> item = new ArrayList<>();
             int page = 1;
-            String url = "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-rossia_/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=" + String.valueOf(page);
+            String use_url = url + String.valueOf(page);
             boolean bool;
             do {
-                Document doc = Jsoup.connect(url).get();
+                Document doc = Jsoup.connect(use_url).get();
                 Elements cruiseElements = doc.select("div.mt-0.mb-4.lh_1-2.fz_xl");
                 bool = false;
                 int c = 0;
@@ -36,7 +36,7 @@ public class S_Cruises {
                 Element paginationItem = doc.selectFirst(".pagination__item.next.disabled");
                 if(paginationItem == null){
                     page ++;
-                    url = "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-rossia_/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=" + String.valueOf(page);
+                    use_url = url + String.valueOf(page);
                     bool = true;
                 }
             }while (bool);
