@@ -46,6 +46,7 @@ public class Parser_Vodohod {
                     System.out.println("search button.....");
                     ((JavascriptExecutor)webDriver).executeScript("arguments[0].click();", button);
                     check = webDriver.findElements(By.cssSelector(".b-rc__view-all-btn.b-rc__view-all-btn--hide"));
+                    Thread.sleep(200);
                 }
                 Thread.sleep(1000);
                 WebElement teplohod = webDriver.findElement(By.cssSelector(".booking__left-item.booking__left-ship"));

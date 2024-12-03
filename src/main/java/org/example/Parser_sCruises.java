@@ -21,9 +21,7 @@ public class Parser_sCruises {
 
         try(BufferedWriter writer = new BufferedWriter(new FileWriter("sozvezdie.txt", true))) {
             webDriver.get(url);
-            //ПРОЛИСТАТЬ И НАЖАТЬ ПОКАЗАТЬ ЕЩЁ//
 
-            //ПРОЛИСТАТЬ И НАЖАТЬ ПОКАЗАТЬ ЕЩЁ//
             List<WebElement> cruiseItems = webDriver.findElements(By.cssSelector(".schedule-item mb_2rem "));
             for (WebElement item : cruiseItems){
                 try{
@@ -58,4 +56,5 @@ public class Parser_sCruises {
             webDriver.quit();
         }
     }
+
 }
