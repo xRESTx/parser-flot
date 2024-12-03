@@ -11,7 +11,7 @@ public class Main {
         System.setProperty("webdriver.chrome.driver", "geckodriver-v0.35.0-win64\\geckodriver.exe");
 
 
-        mosturFlot();
+//        mosturFlot();
 //        vodohod();
 //        doninturflot();
 //        gamma();

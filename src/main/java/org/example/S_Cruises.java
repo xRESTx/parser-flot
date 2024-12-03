@@ -16,12 +16,6 @@ import static org.example.Format.*;
 public class S_Cruises {
     public static void main(String[] args) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("s-cruises.txt"))){
-            BufferedReader file = new BufferedReader(new FileReader("date.txt"));
-            List<String> allDates = new ArrayList<>();
-            String line;
-            while((line = file.readLine())!=null){
-                allDates.add(line);
-            }
             List<String> item = new ArrayList<>();
             int page = 1;
             String url = "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-rossia_/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=" + String.valueOf(page);
@@ -37,7 +31,6 @@ public class S_Cruises {
                         item.add(linlEl.attr("href"));
                     }
                     c++;
-
                 }
                 System.out.println(c);
                 Element paginationItem = doc.selectFirst(".pagination__item.next.disabled");
