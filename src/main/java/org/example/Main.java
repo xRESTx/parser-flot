@@ -10,12 +10,27 @@ public class Main {
     public static void main(String[] args) throws IOException {
         System.setProperty("webdriver.chrome.driver", "geckodriver-v0.35.0-win64\\geckodriver.exe");
 
-        sCruises();
+        volgaPlace();
+
+//        sCruises();
 //        mosturFlot();
 //        vodohod();
 //        doninturflot();
 //        gamma();
         //sCruises();
+    }
+
+    static public void volgaPlace(){
+        ParseVolgaPles parveVolga = new ParseVolgaPles();
+        String[] urls = {
+                "https://volgaples.ru/boats/boat-1.html",
+                "https://volgaples.ru/boats/boat-2.html",
+                "https://volgaples.ru/boats/boat-3.html",
+                "https://volgaples.ru/boats/boat-4.html"
+        };
+        for(String url : urls){
+            parveVolga.Course(url, "VolgaPles.txt");
+        }
     }
     static public void mosturFlot(){
         Parser_Mosturflot parserMosturflot = new Parser_Mosturflot();
