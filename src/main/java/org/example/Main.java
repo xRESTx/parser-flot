@@ -10,8 +10,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         System.setProperty("webdriver.chrome.driver", "geckodriver-v0.35.0-win64\\geckodriver.exe");
 
-        volgaPlace();
-
+        WhiteSwan();
+//        volgaPlace();
 //        sCruises();
 //        mosturFlot();
 //        vodohod();
@@ -20,6 +20,16 @@ public class Main {
         //sCruises();
     }
 
+    static public void WhiteSwan(){
+        ParserWhiteSwan parserWhiteSwan = new ParserWhiteSwan();
+        String[] urls = {
+                "https://www.bely-lebed.ru/ship.asp?t=147",
+                "https://www.bely-lebed.ru/ship.asp?t=132"
+        };
+        for (String url : urls){
+            parserWhiteSwan.Course(url,"WhiteSwan.txt");
+        }
+    }
     static public void volgaPlace(){
         ParseVolgaPles parveVolga = new ParseVolgaPles();
         String[] urls = {
