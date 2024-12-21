@@ -10,7 +10,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         System.setProperty("webdriver.chrome.driver", "geckodriver-v0.35.0-win64\\geckodriver.exe");
 
-        WhiteSwan();
+        CeasarTravel();
+//        WhiteSwan();
 //        volgaPlace();
 //        sCruises();
 //        mosturFlot();
@@ -19,7 +20,16 @@ public class Main {
 //        gamma();
         //sCruises();
     }
-
+    static public void CeasarTravel(){
+        ParseCaesarTravel parseCaesarTravel = new ParseCaesarTravel();
+        String[] urls = {
+                "https://www.cezar-travel.ru/president-ship",
+                "https://www.cezar-travel.ru/muromets-ship"
+        };
+        for (String url : urls){
+            parseCaesarTravel.Course(url,"CeasarTravel.txt");
+        }
+    }
     static public void WhiteSwan(){
         ParserWhiteSwan parserWhiteSwan = new ParserWhiteSwan();
         String[] urls = {

@@ -22,9 +22,9 @@ import java.util.regex.Pattern;
 public class ParserWhiteSwan {
 
     public void Course(String url, String fileName) throws RuntimeException {
-//        FirefoxOptions options = new FirefoxOptions();
-//        options.addArguments("--headless");
-        WebDriver webDriver = new FirefoxDriver();
+        FirefoxOptions options = new FirefoxOptions();
+        options.addArguments("--headless");
+        WebDriver webDriver = new FirefoxDriver(options);
         WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
         Format format = new Format();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName,true))) {
