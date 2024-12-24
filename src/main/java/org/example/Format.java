@@ -95,4 +95,11 @@ public class Format {
             writer.flush();
         }
     }
+
+    static public void FormatAzuritFromTXT(String cruiseName, String purchaseLink, ArrayList<String> city, ArrayList<String> timeIn, ArrayList<String> timeOut, ArrayList<String> timeDayOut, ArrayList<String> timeDayIn, BufferedWriter writer) throws IOException {
+        writer.write(String.format("%s\t%s\t%s\t%s %s\t%s %s\n", cruiseName, purchaseLink, city.getFirst(), timeDayIn.getFirst(), timeIn.getFirst(), timeDayOut.getFirst(),timeOut.getFirst()));
+        for(int numberDay = 1; numberDay < city.size() && numberDay < timeIn.size() && numberDay < timeOut.size(); numberDay++){
+            writer.write(String.format("\t\t%s\t%s %s\t%s %s\n", city.get(numberDay), timeDayIn.get(numberDay), timeIn.get(numberDay), timeDayOut.get(numberDay),timeOut.get(numberDay)));
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package org.example.ui;
 
+import org.example.ParseAzurit;
 import org.example.ParseCaesarTravel;
 import org.example.ParseVolgaPles;
 import org.example.ParserWhiteSwan;
@@ -143,14 +144,14 @@ public class CruiseParserGUI {
         }
     }
     static public void Azurit(JTextArea logArea) {
-        ParseCaesarTravel parseCaesarTravel = new ParseCaesarTravel();
+        ParseAzurit parseAzurit = new ParseAzurit();
         String[] urls = {
-
+                "https://azurit-tour.ru/kruizy/kruizy-na-t-h-ivan-bunin/"
         };
         for (String url : urls) {
             logArea.append("Parsing URL: " + url + "\n");
             scrollToBottom(logArea);
-            //parseCaesarTravel.Course(url, "Azurit.txt");
+            parseAzurit.Course(url, "Azurit.txt");
         }
     }
     private static void scrollToBottom(JTextArea textArea) {
