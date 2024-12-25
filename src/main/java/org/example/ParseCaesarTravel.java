@@ -131,11 +131,10 @@ public class ParseCaesarTravel {
 
                         Pattern pattern = Pattern.compile(timeRangePattern);
                         Matcher matcher = pattern.matcher(pIDs.getLast().getText());
-
+                        System.out.println(pIDs.getLast().getText());
                         if (matcher.find()) {
                             String startTime = matcher.group(1);
                             String endTime = matcher.group(2);
-
                             timeIn.add(startTime);
                             timeOut.add(endTime);
                         } else {
@@ -149,8 +148,8 @@ public class ParseCaesarTravel {
                                 if(firstDay){
                                     firstDay = false;
                                     timeOut.add(time);
-                                }else timeIn.add(time);
-
+                                }
+                                else timeIn.add(time);
                             }
                         }
                         tdSize++;

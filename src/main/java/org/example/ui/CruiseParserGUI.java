@@ -7,6 +7,9 @@ import org.example.ParserWhiteSwan;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CruiseParserGUI {
 
@@ -119,6 +122,7 @@ public class CruiseParserGUI {
     }
 
     static public void CeasarTravel(JTextArea logArea) {
+
         ParseCaesarTravel parseCaesarTravel = new ParseCaesarTravel();
         String[] urls = {
                 "https://www.cezar-travel.ru/president-ship",
@@ -127,15 +131,17 @@ public class CruiseParserGUI {
         for (String url : urls) {
             logArea.append("Parsing URL: " + url + "\n");
             scrollToBottom(logArea);
-            parseCaesarTravel.Course(url, "CeasarTravel.txt");
+            parseCaesarTravel.Course(url, "tempFile/CeasarTravel.txt");
         }
+        replaceMonthNamesInFile("tempFile/CeasarTravel.txt","CeasarTravel.txt" );
     }
 
     static public void WhiteSwan(JTextArea logArea) {
         ParserWhiteSwan parserWhiteSwan = new ParserWhiteSwan();
         String[] urls = {
                 "https://www.bely-lebed.ru/ship.asp?t=147",
-                "https://www.bely-lebed.ru/ship.asp?t=132"
+                "https://www.bely-lebed.ru/ship.asp?t=132",
+                "https://www.bely-lebed.ru/ship.asp?t=131"
         };
         for (String url : urls) {
             logArea.append("Parsing URL: " + url + "\n");
@@ -143,6 +149,7 @@ public class CruiseParserGUI {
             parserWhiteSwan.Course(url, "WhiteSwan.txt");
         }
     }
+
     static public void Azurit(JTextArea logArea) {
         ParseAzurit parseAzurit = new ParseAzurit();
         String[] urls = {
@@ -151,11 +158,55 @@ public class CruiseParserGUI {
         for (String url : urls) {
             logArea.append("Parsing URL: " + url + "\n");
             scrollToBottom(logArea);
-            parseAzurit.Course(url, "Azurit.txt");
+            parseAzurit.Course(url, "tempFile/Azurit.txt");
         }
+        replaceMonthNamesInFile("tempFile/Azurit.txt","Azurit.txt" );
     }
+
     private static void scrollToBottom(JTextArea textArea) {
         textArea.setCaretPosition(textArea.getDocument().getLength());
     }
+    public static void replaceMonthNamesInFile(String inputFilePath, String outputFilePath) {
+        Map<String, String> months = new HashMap<>();
+        months.put(" января ", ".01.2025 ");
+        months.put(" февраля ", ".02.2025 ");
+        months.put(" марта ", ".03.2025 ");
+        months.put(" апреля ", ".04.2025 ");
+        months.put(" мая ", ".05.2025 ");
+        months.put(" июня ", ".06.2025 ");
+        months.put(" июля ", ".07.2025 ");
+        months.put(" августа ", ".08.2025 ");
+        months.put(" сентября ", ".09.2025 ");
+        months.put(" октября ", ".10.2025 ");
+        months.put(" ноября ", ".11.2025 ");
+        months.put(" декабря ", ".12.2025 ");
+        months.put(" Января ", ".01.");
+        months.put(" Февраля ", ".02.");
+        months.put(" Марта ", ".03.");
+        months.put(" Апреля ", ".04.");
+        months.put(" Мая ", ".05.");
+        months.put(" Июня ", ".06.");
+        months.put(" Июля ", ".07.");
+        months.put(" Августа ", ".08. ");
+        months.put(" Сентября ", ".09.");
+        months.put(" Отября ", ".10.");
+        months.put(" Ноября ", ".11.");
+        months.put(" Декабря ", ".12.");
 
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFilePath));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(outputFilePath))) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                for (Map.Entry<String, String> entry : months.entrySet()) {
+                    line = line.replaceAll(entry.getKey(), entry.getValue());
+                }
+                writer.write(line);
+                writer.newLine();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
