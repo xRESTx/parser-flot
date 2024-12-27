@@ -14,6 +14,13 @@ import java.util.Map;
 public class CruiseParserGUI {
 
     public static void main(String[] args) {
+
+        File directory = new File("./tempFile");
+        if(!directory.exists()) {
+            if (directory.mkdirs()) {
+                System.out.println("Папка создана");
+            }
+        }
         // Создаем главное окно
         JFrame frame = new JFrame("Cruise Routes Finder");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,6 +60,10 @@ public class CruiseParserGUI {
             logArea.append("Starting parsing VolgaPles...\n");
             scrollToBottom(logArea);
             new Thread(() -> {
+                File file = new File("VolgaPles.txt");
+                if(file.exists()){
+                    file.delete();
+                }
                 volgaPlace(logArea);
                 SwingUtilities.invokeLater(() -> {
                     logArea.append("Parsing VolgaPles completed.\n");
@@ -68,6 +79,10 @@ public class CruiseParserGUI {
             logArea.append("Starting parsing White Swan...\n");
             scrollToBottom(logArea);
             new Thread(() -> {
+                File file = new File("WhiteSwan.txt");
+                if(file.exists()){
+                    file.delete();
+                }
                 WhiteSwan(logArea);
                 SwingUtilities.invokeLater(() -> {
                     logArea.append("Parsing White Swan completed.\n");
@@ -82,6 +97,14 @@ public class CruiseParserGUI {
             logArea.append("Starting parsing Caesar Travel...\n");
             scrollToBottom(logArea);
             new Thread(() -> {
+                File fileTemp = new File("tempFile/CeasarTravel.txt");
+                File file = new File("CeasarTravel.txt");
+                if(file.exists()){
+                    file.delete();
+                }
+                if(fileTemp.exists()){
+                    fileTemp.delete();
+                }
                 CeasarTravel(logArea);
                 SwingUtilities.invokeLater(() -> {
                     logArea.append("Parsing Caesar Travel completed.\n");
@@ -96,6 +119,14 @@ public class CruiseParserGUI {
             logArea.append("Starting parsing Azurit Travel...\n");
             scrollToBottom(logArea);
             new Thread(() -> {
+                File fileTemp = new File("tempFile/Azurit.txt");
+                File file = new File("Azurit.txt");
+                if(file.exists()){
+                    file.delete();
+                }
+                if(fileTemp.exists()){
+                    fileTemp.delete();
+                }
                 Azurit(logArea);
                 SwingUtilities.invokeLater(() -> {
                     logArea.append("Parsing Azurit Travel completed.\n");
@@ -152,7 +183,7 @@ public class CruiseParserGUI {
                 "https://www.bely-lebed.ru/ship.asp?t=132",
                 "https://www.bely-lebed.ru/ship.asp?t=131"
         };
-        for (String url : urls) {
+        for (String url :  urls) {
             logArea.append("Parsing URL: " + url + "\n");
             scrollToBottom(logArea);
             parserWhiteSwan.Course(url, "WhiteSwan.txt");
@@ -162,7 +193,8 @@ public class CruiseParserGUI {
     static public void Azurit(JTextArea logArea) {
         ParseAzurit parseAzurit = new ParseAzurit();
         String[] urls = {
-                "https://azurit-tour.ru/kruizy/kruizy-na-t-h-ivan-bunin/"
+                "https://azurit-tour.ru/kruizy/kruizy-na-t-h-ivan-bunin/",
+                "https://azurit-tour.ru/kruizy/kruiz-na-t-h-pavel-mironov/kruizy/"
         };
         for (String url : urls) {
             logArea.append("Parsing URL: " + url + "\n");
