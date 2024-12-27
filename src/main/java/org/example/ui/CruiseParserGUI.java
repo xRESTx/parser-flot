@@ -49,6 +49,7 @@ public class CruiseParserGUI {
 
         // Добавление обработчиков для кнопок
         volgaButton.addActionListener(e -> {
+            volgaButton.setEnabled(false);
             logArea.append("Starting parsing VolgaPles...\n");
             scrollToBottom(logArea);
             new Thread(() -> {
@@ -57,10 +58,13 @@ public class CruiseParserGUI {
                     logArea.append("Parsing VolgaPles completed.\n");
                     scrollToBottom(logArea);
                 });
+                volgaButton.setEnabled(true);
             }).start();
+
         });
 
         whiteSwanButton.addActionListener(e -> {
+            whiteSwanButton.setEnabled(false);
             logArea.append("Starting parsing White Swan...\n");
             scrollToBottom(logArea);
             new Thread(() -> {
@@ -69,10 +73,12 @@ public class CruiseParserGUI {
                     logArea.append("Parsing White Swan completed.\n");
                     scrollToBottom(logArea);
                 });
+                whiteSwanButton.setEnabled(true);
             }).start();
         });
 
         caesarTravelButton.addActionListener(e -> {
+            caesarTravelButton.setEnabled(false);
             logArea.append("Starting parsing Caesar Travel...\n");
             scrollToBottom(logArea);
             new Thread(() -> {
@@ -81,10 +87,12 @@ public class CruiseParserGUI {
                     logArea.append("Parsing Caesar Travel completed.\n");
                     scrollToBottom(logArea);
                 });
+                caesarTravelButton.setEnabled(true);
             }).start();
         });
 
         azuritButton.addActionListener(e -> {
+            azuritButton.setEnabled(false);
             logArea.append("Starting parsing Azurit Travel...\n");
             scrollToBottom(logArea);
             new Thread(() -> {
@@ -93,6 +101,7 @@ public class CruiseParserGUI {
                     logArea.append("Parsing Azurit Travel completed.\n");
                     scrollToBottom(logArea);
                 });
+                azuritButton.setEnabled(false);
             }).start();
         });
 
