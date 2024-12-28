@@ -1,9 +1,6 @@
 package org.example.ui;
 
-import org.example.ParseAzurit;
-import org.example.ParseCaesarTravel;
-import org.example.ParseVolgaPles;
-import org.example.ParserWhiteSwan;
+import org.example.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -158,6 +155,21 @@ public class CruiseParserGUI {
             logArea.append("Parsing URL: " + url + "\n");
             scrollToBottom(logArea);
             parveVolga.Course(url, "VolgaPles.txt");
+        }
+    }
+
+    static public void SputnikGermes(JTextArea logArea) {
+        Parser_SputnikGermes parserSputnikGermes = new Parser_SputnikGermes();
+        String[] urls = {
+                "https://river.sputnik-germes.ru/index.php?option=com_content&view=article&id=9&aid=1000&t=49&price1=100&price2=200000&day1=01-04-25&day2=01-11-25&dlitfrom=01&dlitto=30&city=0&mc=&acts=&preset=11111",
+                "https://river.sputnik-germes.ru/index.php?option=com_content&view=article&id=9&aid=1000&t=2&price1=100&price2=200000&day1=01-04-25&day2=01-11-25&dlitfrom=01&dlitto=30&city=0&mc=&acts=&preset=11111",
+                "https://river.sputnik-germes.ru/index.php?option=com_content&view=article&id=9&aid=1000&t=128&price1=100&price2=200000&day1=01-04-25&day2=01-11-25&dlitfrom=01&dlitto=30&city=0&mc=&acts=&preset=11111",
+                "https://river.sputnik-germes.ru/index.php?option=com_content&view=article&id=9&aid=1000&t=53&price1=100&price2=200000&day1=01-04-25&day2=01-11-25&dlitfrom=01&dlitto=30&city=0&mc=&acts=&preset=11111"
+        };
+        for (String url : urls) {
+            logArea.append("Parsing URL: " + url + "\n");
+            scrollToBottom(logArea);
+            parserSputnikGermes.Course(url, "SputnikGermes.txt");
         }
     }
 

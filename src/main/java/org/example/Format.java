@@ -102,4 +102,21 @@ public class Format {
             writer.write(String.format("\t\t%s\t%s %s\t%s %s\n", city.get(numberDay), timeDayIn.get(numberDay), timeIn.get(numberDay), timeDayOut.get(numberDay),timeOut.get(numberDay)));
         }
     }
+    static void FormatSputnikGermesFromTXT(String cruiseName, String purchaseLink,ArrayList<String> timeDay, ArrayList<String> city, ArrayList<String> timeIn, ArrayList<String> timeOut, BufferedWriter writer) throws IOException {
+        writer.write(String.format("%s\t%s\t%s\t\t%s %s\n", cruiseName, purchaseLink, city.get(0), timeDay.get(0),timeOut.get(0)));
+        for(int numberDay = 1; numberDay < city.size() && numberDay < timeIn.size() && numberDay < timeOut.size(); numberDay++){
+            boolean flag = false;
+            if(timeDay.get(numberDay).equals("")){
+                flag = true;
+            }
+            if(timeIn.get(numberDay).equals("") && !flag) {
+                timeIn.set(numberDay,"00:00");
+            }
+            if(timeOut.get(numberDay).equals("") && numberDay!= numberDay-1 && !flag){
+                timeOut.set(numberDay,"00:00");
+            }
+            writer.write(String.format("\t\t%s\t%s %s\t%s %s\n", city.get(numberDay), timeDay.get(numberDay),timeIn.get(numberDay), timeDay.get(numberDay),timeOut.get(numberDay)));
+            writer.flush();
+        }
+    }
 }
