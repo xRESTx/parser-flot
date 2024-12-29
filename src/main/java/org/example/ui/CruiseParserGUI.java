@@ -22,13 +22,13 @@ public class CruiseParserGUI {
         JFrame frame = new JFrame("Cruise Routes Finder");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 400);
-
-        // Панель для ввода данных
-        JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new GridLayout(3, 2, 10, 10));
+//
+//        // Панель для ввода данных
+//        JPanel inputPanel = new JPanel();
+//        inputPanel.setLayout(new GridLayout(4, 2, 10, 10));
 
         // Кнопки для запуска парсинга различных сайтов
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 2, 10, 10));
+        JPanel buttonPanel = new JPanel(new GridLayout(3, 2, 10, 10));
         Dimension buttonSize = new Dimension(150, 50);
 
         JButton volgaButton = new JButton("Parse VolgaPles");
@@ -39,11 +39,14 @@ public class CruiseParserGUI {
         caesarTravelButton.setPreferredSize(buttonSize);
         JButton azuritButton = new JButton("Parse Azurit");
         azuritButton.setPreferredSize(buttonSize);
+        JButton sputnikButton = new JButton("Parse Sputnik-Hermes");
+        sputnikButton.setPreferredSize(buttonSize);
 
         buttonPanel.add(volgaButton);
         buttonPanel.add(whiteSwanButton);
         buttonPanel.add(caesarTravelButton);
         buttonPanel.add(azuritButton);
+        buttonPanel.add(sputnikButton);
 
         // Область для отображения логов
         JTextArea logArea = new JTextArea();
@@ -68,7 +71,24 @@ public class CruiseParserGUI {
                 });
                 volgaButton.setEnabled(true);
             }).start();
+        });
 
+        sputnikButton.addActionListener(e -> {
+            sputnikButton.setEnabled(false);
+            logArea.append("Starting parsing Sputnik-Hermes...\n");
+            scrollToBottom(logArea);
+            new Thread(() -> {
+                File file = new File("SputnikHermes.txt");
+                if(file.exists()){
+                    file.delete();
+                }
+                SputnikGermes(logArea);
+                SwingUtilities.invokeLater(() -> {
+                    logArea.append("Parsing Sputnik-hermes completed.\n");
+                    scrollToBottom(logArea);
+                });
+                sputnikButton.setEnabled(true);
+            }).start();
         });
 
         whiteSwanButton.addActionListener(e -> {
@@ -135,7 +155,7 @@ public class CruiseParserGUI {
 
         // Размещение компонентов в окне
         frame.setLayout(new BorderLayout(10, 10));
-        frame.add(inputPanel, BorderLayout.NORTH);
+//        frame.add(inputPanel, BorderLayout.NORTH);
         frame.add(buttonPanel, BorderLayout.CENTER);
         frame.add(scrollPane, BorderLayout.SOUTH);
 
