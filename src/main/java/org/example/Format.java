@@ -112,8 +112,13 @@ public class Format {
             if(timeIn.get(numberDay).equals("") && !flag) {
                 timeIn.set(numberDay,"00:00");
             }
-            if(timeOut.get(numberDay).equals("") && numberDay!= numberDay-1 && !flag){
+            if(timeOut.get(numberDay).equals("") && numberDay!= city.size()-1 && !flag){
                 timeOut.set(numberDay,"00:00");
+            }
+            if(numberDay== city.size()-1){
+                writer.write(String.format("\t\t%s\t%s %s\t\n", city.get(numberDay), timeDay.get(numberDay),timeIn.get(numberDay)));
+                writer.flush();
+                break;
             }
             writer.write(String.format("\t\t%s\t%s %s\t%s %s\n", city.get(numberDay), timeDay.get(numberDay),timeIn.get(numberDay), timeDay.get(numberDay),timeOut.get(numberDay)));
             writer.flush();

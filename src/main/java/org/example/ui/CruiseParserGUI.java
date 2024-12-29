@@ -60,7 +60,11 @@ public class CruiseParserGUI {
             logArea.append("Starting parsing VolgaPles...\n");
             scrollToBottom(logArea);
             new Thread(() -> {
-                File file = new File("VolgaPles.txt");
+                File file = new File("tempFile/VolgaPles.txt");
+                File file1 = new File("VolgaPles.txt");
+                if(file1.exists()){
+                    file1.delete();
+                }
                 if(file.exists()){
                     file.delete();
                 }
@@ -149,7 +153,7 @@ public class CruiseParserGUI {
                     logArea.append("Parsing Azurit Travel completed.\n");
                     scrollToBottom(logArea);
                 });
-                azuritButton.setEnabled(false);
+                azuritButton.setEnabled(true);
             }).start();
         });
 
@@ -174,8 +178,9 @@ public class CruiseParserGUI {
         for (String url : urls) {
             logArea.append("Parsing URL: " + url + "\n");
             scrollToBottom(logArea);
-            parveVolga.Course(url, "VolgaPles.txt");
+            parveVolga.Course(url, "tempFile/VolgaPles.txt");
         }
+        replaceMonthNamesInFile("tempFile/VolgaPles.txt","VolgaPles.txt" );
     }
 
     static public void SputnikGermes(JTextArea logArea) {
@@ -262,7 +267,7 @@ public class CruiseParserGUI {
         months.put(" Июля ", ".07.");
         months.put(" Августа ", ".08. ");
         months.put(" Сентября ", ".09.");
-        months.put(" Отября ", ".10.");
+        months.put(" Октября ", ".10.");
         months.put(" Ноября ", ".11.");
         months.put(" Декабря ", ".12.");
 
