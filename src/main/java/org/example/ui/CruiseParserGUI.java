@@ -78,7 +78,7 @@ public class CruiseParserGUI {
             logArea.append("Starting parsing Sputnik-Hermes...\n");
             scrollToBottom(logArea);
             new Thread(() -> {
-                File file = new File("SputnikHermes.txt");
+                File file = new File("SputnikGermes.txt");
                 if(file.exists()){
                     file.delete();
                 }

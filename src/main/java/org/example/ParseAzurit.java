@@ -39,9 +39,35 @@ public class ParseAzurit {
                     }
                 }
             }
+            boolean flag = false;
+            String modifiedUrl = "";
+            for(int i=0;i<hrefs.size();i++){
+                ((JavascriptExecutor) webDriver).executeScript("window.open('" + hrefs.get(i) + "', '_blank');");
+
+                String originalTab = webDriver.getWindowHandle();
+                Set<String> allTabs = webDriver.getWindowHandles();
+                for (String tab : allTabs) {
+                    if (!tab.equals(originalTab)) {
+                        webDriver.switchTo().window(tab);
+                        break;
+                    }
+                }
+                String hrefInformation;
+                Thread.sleep(5000);
+                List<WebElement> hrefInfo = webDriver.findElements(By.cssSelector(".btn.btn_accent.w-100"));
+                System.out.println(hrefInfo.size());
+                if(!hrefInfo.isEmpty()){
+                    hrefInformation = hrefInfo.getFirst().getAttribute("href");
+                    modifiedUrl = hrefInformation.replaceAll("(\\?tourid=)\\d+", "$1");
+                    System.out.println(modifiedUrl);
+                    flag = true;
+                }
+                webDriver.close();
+                webDriver.switchTo().window(originalTab);
+                if(flag) break;
+            }
 
             for(String href : hrefs){
-
                 boolean checkFirst = true;
                 String regex = "tourid=(\\d+)";
 
@@ -49,9 +75,7 @@ public class ParseAzurit {
                 Pattern patternHref = Pattern.compile(regex);
                 Matcher matcherHref = patternHref.matcher(href);
                 if (matcherHref.find()) {
-                    // Выводим первую группу захвата
-                    href = href.replaceAll("\\?tourid=\\d+", "");
-                    href += "programma-kruiza-bunin?tourid="  + matcherHref.group(1);
+                    href = modifiedUrl  + matcherHref.group(1);
                 } else {
                     System.out.println("Ссылка не найдена");
                     continue;
@@ -137,7 +161,7 @@ public class ParseAzurit {
                 webDriver.close();
                 webDriver.switchTo().window(originalTab);
             }
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         } finally {
             webDriver.manage().deleteAllCookies();
