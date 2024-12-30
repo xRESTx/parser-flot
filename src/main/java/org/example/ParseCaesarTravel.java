@@ -23,7 +23,7 @@ public class ParseCaesarTravel {
     public void Course(String url, String fileName) throws RuntimeException {
         FirefoxOptions options = new FirefoxOptions();
         options.addArguments("--headless");
-        WebDriver webDriver = new FirefoxDriver(options);
+        WebDriver webDriver = new FirefoxDriver();
         WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
         Format format = new Format();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName,true))) {
@@ -75,8 +75,12 @@ public class ParseCaesarTravel {
                 click.getLast().click();
 
                 WebElement main = webDriver.findElement(By.className("tab-content"));
-                WebElement container = main.findElement(By.id("excursion"));
-                WebElement tbody = container.findElement(By.tagName("tbody"));
+                List<WebElement> container = main.findElements(By.id("excursion"));
+                if(container.isEmpty()){
+                    Thread.sleep(500);
+                    container = main.findElements(By.id("excursion"));
+                }
+                WebElement tbody = container.getFirst().findElement(By.tagName("tbody"));
                 List<WebElement> cells = tbody.findElements(By.tagName("tr"));
                 boolean firstDay = true;
                 boolean first = true;
@@ -106,8 +110,8 @@ public class ParseCaesarTravel {
                         if(pIDs.isEmpty()) continue;
 
                         for(WebElement pId: pIDs){
-
                             List<WebElement> strong = pId.findElements(By.tagName("strong"));
+                            System.out.println(strong.size());
                             if(strong.isEmpty()) continue;
                             if(firsttd){
                                 firsttd=false;
@@ -161,7 +165,7 @@ public class ParseCaesarTravel {
                 webDriver.close();
                 webDriver.switchTo().window(originalTab);
             }
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         } finally {
             webDriver.manage().deleteAllCookies();
