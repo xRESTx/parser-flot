@@ -23,7 +23,7 @@ public class ParseCaesarTravel {
     public void Course(String url, String fileName) throws RuntimeException {
         FirefoxOptions options = new FirefoxOptions();
         options.addArguments("--headless");
-        WebDriver webDriver = new FirefoxDriver();
+        WebDriver webDriver = new FirefoxDriver(options);
         WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
         Format format = new Format();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName,true))) {
@@ -67,7 +67,8 @@ public class ParseCaesarTravel {
                         break;
                     }
                 }
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("nav-tabs")));
+                Thread.sleep(2000);
+//                wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("nav-tabs")));
 
                 WebElement navigation = webDriver.findElement(By.className("nav-tabs"));
                 List<WebElement> click = navigation.findElements(By.tagName("li"));
@@ -77,9 +78,10 @@ public class ParseCaesarTravel {
                 WebElement main = webDriver.findElement(By.className("tab-content"));
                 List<WebElement> container = main.findElements(By.id("excursion"));
                 if(container.isEmpty()){
-                    Thread.sleep(500);
+                    Thread.sleep(2000);
                     container = main.findElements(By.id("excursion"));
                 }
+                Thread.sleep(2000);
                 WebElement tbody = container.getFirst().findElement(By.tagName("tbody"));
                 List<WebElement> cells = tbody.findElements(By.tagName("tr"));
                 boolean firstDay = true;
