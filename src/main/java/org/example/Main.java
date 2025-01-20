@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         System.setProperty("webdriver.chrome.driver", "geckodriver-v0.35.0-win64\\geckodriver.exe");
 
-        CeasarTravel();
+//        CeasarTravel();
 //        WhiteSwan();
 //        volgaPlace();
 //        sCruises();
@@ -18,6 +18,7 @@ public class Main {
 //        vodohod();
 //        doninturflot();
 //        gamma();
+        gammaInfo();
         //sCruises();
     }
     static public void CeasarTravel(){
@@ -30,6 +31,7 @@ public class Main {
             parseCaesarTravel.Course(url,"CeasarTravel.txt");
         }
     }
+
     static public void WhiteSwan(){
         ParserWhiteSwan parserWhiteSwan = new ParserWhiteSwan();
         String[] urls = {
@@ -123,6 +125,22 @@ public class Main {
         };
         for (String url : urlsGama) {
             parserGama.Course(url);
+        }
+    }
+    static public void gammaInfo(){
+        Parser_gama parserGama = new Parser_gama();
+        String[] urlsGama = {
+                "https://gama-nn.ru/cruise/aurum/",
+                "https://gama-nn.ru/cruise/zolotoekolco/",
+                "https://gama-nn.ru/cruise/popov/",
+                "https://gama-nn.ru/cruise/aldan/",
+                "https://gama-nn.ru/cruise/sveshnikov/",
+                "https://gama-nn.ru/cruise/nikitin/",
+                "https://gama-nn.ru/cruise/kulibin/",
+                "https://gama-nn.ru/cruise/okt-revolution/"
+        };
+        for (String url : urlsGama) {
+            parserGama.CourseInfo(url,"gammaInfo.txt");
         }
     }
     static public void doninturflot(){

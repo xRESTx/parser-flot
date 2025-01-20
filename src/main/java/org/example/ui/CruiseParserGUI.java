@@ -41,12 +41,15 @@ public class CruiseParserGUI {
         azuritButton.setPreferredSize(buttonSize);
         JButton sputnikButton = new JButton("Parse Sputnik-Hermes");
         sputnikButton.setPreferredSize(buttonSize);
+        JButton gamaButton = new JButton("Parse Gama");
+        gamaButton.setPreferredSize(buttonSize);
 
         buttonPanel.add(volgaButton);
         buttonPanel.add(whiteSwanButton);
         buttonPanel.add(caesarTravelButton);
         buttonPanel.add(azuritButton);
         buttonPanel.add(sputnikButton);
+        buttonPanel.add(gamaButton);
 
         // Область для отображения логов
         JTextArea logArea = new JTextArea();
@@ -77,6 +80,23 @@ public class CruiseParserGUI {
             }).start();
         });
 
+        gamaButton.addActionListener(e -> {
+            gamaButton.setEnabled(false);
+            logArea.append("Starting parsing Gama...\n");
+            scrollToBottom(logArea);
+            new Thread(() -> {
+                File file1 = new File("Gama.txt");
+                if(file1.exists()){
+                    file1.delete();
+                }
+                gamaInfo(logArea);
+                SwingUtilities.invokeLater(() -> {
+                    logArea.append("Parsing Gama completed.\n");
+                    scrollToBottom(logArea);
+                });
+                gamaButton.setEnabled(true);
+            }).start();
+        });
         sputnikButton.addActionListener(e -> {
             sputnikButton.setEnabled(false);
             logArea.append("Starting parsing Sputnik-Hermes...\n");
@@ -226,7 +246,40 @@ public class CruiseParserGUI {
             parserWhiteSwan.Course(url, "WhiteSwan.txt");
         }
     }
-
+    static public void gamaInfo(JTextArea logArea){
+        Parser_gama parserGama = new Parser_gama();
+        String[] urlsGama = {
+                "https://gama-nn.ru/booking/tours/pts4pdd0pcc51159588/",
+                "https://gama-nn.ru/booking/tours/pts7pdd0pcc48852463/",
+                "https://gama-nn.ru/booking/tours/pts64pdd0pcc66281954/",
+                "https://gama-nn.ru/booking/tours/pts119pdd0pcc59832314/",
+                "https://gama-nn.ru/booking/tours/pts12pdd0pcc58976894/",
+                "https://gama-nn.ru/booking/tours/pts52pdd0pcc24862626/",
+                "https://gama-nn.ru/booking/tours/pts11pdd0pcc32656545/",
+                "https://gama-nn.ru/booking/tours/pts39pdd0pcc72646484/",
+                "https://gama-nn.ru/booking/tours/pts50pdd0pcc79437688/",
+                "https://gama-nn.ru/booking/tours/pts141pdd0pcc22489493/",
+                "https://gama-nn.ru/booking/tours/pts60pdd0pcc57675214/",
+                "https://gama-nn.ru/booking/tours/pts74pdd0pcc68545846/",
+                "https://gama-nn.ru/booking/tours/pts2pdd0pcc33532292/",
+                "https://gama-nn.ru/booking/tours/pts42pdd0pcc27888798/",
+                "https://gama-nn.ru/booking/tours/pts1pdd0pcc26483433/",
+                "https://gama-nn.ru/booking/tours/pts84pdd0pcc52483775/",
+                "https://gama-nn.ru/booking/tours/pts95pdd0pcc48472153/",
+                "https://gama-nn.ru/booking/tours/pts5pdd0pcc81992714/",
+                "https://gama-nn.ru/booking/tours/pts8pdd0pcc65896382/",
+                "https://gama-nn.ru/booking/tours/pts102pdd0pcc57925189/",
+                "https://gama-nn.ru/booking/tours/pts13pdd0pcc82665779/",
+                "https://gama-nn.ru/booking/tours/pts14pdd0pcc41542399/",
+                "https://gama-nn.ru/booking/tours/pts148pdd0pcc49266578/",
+                "https://gama-nn.ru/booking/tours/pts149pdd0pcc28936716/"
+        };
+        for (String url : urlsGama) {
+            logArea.append("Parsing URL: " + url + "\n");
+            scrollToBottom(logArea);
+            parserGama.CourseInfo(url,"Gama.txt");
+        }
+    }
     static public void Azurit(JTextArea logArea) {
         ParseAzurit parseAzurit = new ParseAzurit();
         String[] urls = {
