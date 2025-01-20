@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         System.setProperty("webdriver.chrome.driver", "geckodriver-v0.35.0-win64\\geckodriver.exe");
 
-//        CeasarTravel();
+        CeasarTravel();
 //        WhiteSwan();
 //        volgaPlace();
 //        sCruises();
@@ -18,7 +18,6 @@ public class Main {
 //        vodohod();
 //        doninturflot();
 //        gamma();
-        gammaInfo();
         //sCruises();
     }
     static public void CeasarTravel(){
@@ -203,7 +202,7 @@ public class Main {
         //СВП
         for (int numberPage = 1; numberPage <= 3; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_705853973=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y" +numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_705853973=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y" +numberPage,
                     folderName+ "/vodohod-SBP.txt"
             };
             tasks.add(task);
@@ -212,7 +211,7 @@ public class Main {
 //        Александр Пушкин
         for (int numberPage = 1; numberPage <= 2; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter%5BPROPERTY_CATEGORY%5D=354235&set_filter=y&arrFilter_33_2737816558=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y&PAGEN_1=#anchor-cruises-list" +numberPage,
+                    "https://vodohod.com/cruises/?set_filter=y&arrFilter_33_2737816558=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y&PAGEN_1=#anchor-cruises-list" +numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -221,7 +220,7 @@ public class Main {
 
         for (int numberPage = 1; numberPage <= 3; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_281082452=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y" + "&PAGEN_1="+numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_281082452=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y" + "&PAGEN_1="+numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -229,7 +228,7 @@ public class Main {
         }
         for (int numberPage = 1; numberPage <= 3; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_609249036=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_609249036=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -237,7 +236,7 @@ public class Main {
         }
         for (int numberPage = 1; numberPage <= 3; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_1294049986=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_1294049986=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -246,7 +245,7 @@ public class Main {
         //Жуков
         for (int numberPage = 1; numberPage <= 3; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_3176740534=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_3176740534=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -254,7 +253,7 @@ public class Main {
         }
         for (int numberPage = 1; numberPage <= 8; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_2755790839=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_2755790839=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -263,7 +262,7 @@ public class Main {
         //Созима
         for (int numberPage = 1; numberPage <= 5; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_1413124995=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_1413124995=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -271,7 +270,7 @@ public class Main {
         }
         for (int numberPage = 1; numberPage <= 4; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_2311695342=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_2311695342=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -279,7 +278,7 @@ public class Main {
         }
         for (int numberPage = 1; numberPage <= 3; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_427210367=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_427210367=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -287,7 +286,7 @@ public class Main {
         }
         for (int numberPage = 1; numberPage <= 6; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_3442721337=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_3442721337=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -295,7 +294,7 @@ public class Main {
         }
         for (int numberPage = 1; numberPage <= 11; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_3559453560=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_3559453560=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -304,7 +303,7 @@ public class Main {
 
         for (int numberPage = 1; numberPage <= 3; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_4188233569=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_4188233569=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -313,7 +312,7 @@ public class Main {
         //Ленин
         for (int numberPage = 1; numberPage <=4; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_1741146818=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_1741146818=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -321,7 +320,7 @@ public class Main {
         }
         for (int numberPage = 1; numberPage <=5; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_591242005=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_591242005=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -329,7 +328,7 @@ public class Main {
         }
         for (int numberPage = 1; numberPage <=2; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_1852933865=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_1852933865=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -337,7 +336,7 @@ public class Main {
         }
         for (int numberPage = 1; numberPage <=4; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_3395159584=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_3395159584=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -345,7 +344,7 @@ public class Main {
         }
         for (int numberPage = 1; numberPage <=3; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_975606356=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_975606356=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -353,7 +352,7 @@ public class Main {
         }
         for (int numberPage = 1; numberPage <=4; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_2262374431=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_2262374431=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -362,7 +361,7 @@ public class Main {
         //Нижний новогород
         for (int numberPage = 1; numberPage <=4; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_2393141239=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_2393141239=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -370,7 +369,7 @@ public class Main {
         }
         for (int numberPage = 1; numberPage <=2; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_3165157610=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_3165157610=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -378,7 +377,7 @@ public class Main {
         }
         for (int numberPage = 1; numberPage <=3; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_4274953080=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_4274953080=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -386,7 +385,7 @@ public class Main {
         }
         for (int numberPage = 1; numberPage <=3; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_3124032175=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_3124032175=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -394,7 +393,7 @@ public class Main {
         }
         for (int numberPage = 1; numberPage <=4; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_3035593373=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_3035593373=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -402,7 +401,7 @@ public class Main {
         }
         for (int numberPage = 1; numberPage <=4; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_3286780427=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_3286780427=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -410,7 +409,7 @@ public class Main {
         }
         for (int numberPage = 1; numberPage <=5; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_3544528737=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_3544528737=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -418,7 +417,7 @@ public class Main {
         }
         for (int numberPage = 1; numberPage <=4; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_3478905690=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_3478905690=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
@@ -426,7 +425,7 @@ public class Main {
         }
         for (int numberPage = 1; numberPage <=7; numberPage++) {
             String[] task = new String[]{
-                    "https://vodohod.com/cruises/?arrPreFilter[PROPERTY_CATEGORY]=354235&set_filter=y&arrFilter_33_2281869357=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
+                    "https://vodohod.com/cruises/?&set_filter=y&arrFilter_33_2281869357=Y&arrFilter_8_MIN=01.01.2025&arrFilter_8_MAX=31.12.2025&arrFilter_566_3838745332=Y"+  "&PAGEN_1="+ numberPage,
                     folderName+ "/vodohod"+ Integer.toString(table) +".txt"
             };
             tasks.add(task);
