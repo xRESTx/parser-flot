@@ -1,5 +1,6 @@
 package org.example;
 
+import java.io.File;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,9 +82,15 @@ public class Parser_gama {
         WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
         Format format = new Format();
         try {
+            File directory = new File("./gama");
+            if(!directory.exists()) {
+                if (directory.mkdirs()) {
+                    System.out.println("Папка создана");
+                }
+            }
             webDriver.get(url);
             System.out.println("Okay, let's go");
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("pj-s-tbl")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("pj-search")));
             List<WebElement> cruises = webDriver.findElements(By.className("in-actual"));
 
             String regex = "(\\d{2}\\.\\d{2}\\.\\d{4})\\sв\\s(\\d{2}:\\d{2})";
@@ -97,16 +104,17 @@ public class Parser_gama {
                 timeDayIn.add("");
                 ArrayList<String> timeDayOut = new ArrayList<>();
 
-                WebElement info = cruise.findElement(By.cssSelector(".in-btn-stock.mt-1"));
+                List<WebElement> info = cruise.findElements(By.cssSelector(".in-btn-stock.mt-1"));
+                if(info.isEmpty()){
+                    continue;
+                }
                 WebElement hrefInfo = cruise.findElement(By.cssSelector(".in-btn-stock a"));
                 String hrefValue = hrefInfo.getAttribute("href");
 
-                WebElement click = info.findElement(By.cssSelector(".btn.btn-sm.btn-gama-action"));
+                WebElement click = info.getFirst().findElement(By.cssSelector(".btn.btn-sm.btn-gama-action"));
                 click.click();
 
-                Thread.sleep(500);
-
-                WebElement mainBlank = webDriver.findElement(By.className("pj-tour"));
+                WebElement mainBlank = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("pj-tour")));
                 List<WebElement> blanks = mainBlank.findElements(By.cssSelector(".mt-2.mb-4"));
                 boolean start = true;
                 for(WebElement blank : blanks){
@@ -187,6 +195,7 @@ public class Parser_gama {
                 List<WebElement> closeButton = closeWindow.findElements(By.className("close"));
                 while (closeButton.isEmpty()){
                     closeButton = closeWindow.findElements(By.className("close"));
+                    System.out.println(closeButton.size());
                     Thread.sleep(200);
                 }
                 closeButton.getFirst().click();
@@ -195,7 +204,7 @@ public class Parser_gama {
 
                 System.out.println(timeDayOut.size() + "" + timeDayIn.size() + "" + timeIn.size()+ "" + timeOut.size()+"" + city.size());
                 format.FormatGammaInfoFromTXT(nameTeplohod,hrefValue,city,timeIn,timeOut,timeDayOut,timeDayIn);
-                Thread.sleep(500);
+                Thread.sleep(100);
             }
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
