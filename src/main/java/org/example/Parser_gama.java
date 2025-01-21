@@ -82,7 +82,7 @@ public class Parser_gama {
         WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
         Format format = new Format();
         try {
-            File directory = new File("./gama");
+            File directory = new File("./Gama");
             if(!directory.exists()) {
                 if (directory.mkdirs()) {
                     System.out.println("Папка создана");

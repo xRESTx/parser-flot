@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         System.setProperty("webdriver.chrome.driver", "geckodriver-v0.35.0-win64\\geckodriver.exe");
 
-        CeasarTravel();
+//        CeasarTravel();
 //        WhiteSwan();
 //        volgaPlace();
 //        sCruises();
