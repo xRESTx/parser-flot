@@ -85,7 +85,7 @@ public class CruiseParserGUI {
             logArea.append("Starting parsing Gama...\n");
             scrollToBottom(logArea);
             new Thread(() -> {
-                File file1 = new File("Gama.txt");
+                File file1 = new File("./Gama");
                 if(file1.exists()){
                     file1.delete();
                 }

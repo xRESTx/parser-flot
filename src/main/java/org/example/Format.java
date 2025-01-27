@@ -105,7 +105,7 @@ public class Format {
     }
 
     static public void FormatGammaInfoFromTXT(String cruiseName, String purchaseLink, ArrayList<String> city, ArrayList<String> timeIn, ArrayList<String> timeOut, ArrayList<String> timeDayOut, ArrayList<String> timeDayIn) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(cruiseName+".txt",true))){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("gama/" + cruiseName+".txt",true))){
             writer.write(String.format("%s\t%s\t%s\t%s %s\t%s %s\n", cruiseName, purchaseLink, city.getFirst(), timeDayIn.getFirst(), timeIn.getFirst(), timeDayOut.getFirst(),timeOut.getFirst()));
             for(int numberDay = 1; numberDay < city.size() && numberDay < timeIn.size() && numberDay < timeOut.size(); numberDay++){
                 writer.write(String.format("\t\t%s\t%s %s\t%s %s\n", city.get(numberDay), timeDayIn.get(numberDay), timeIn.get(numberDay), timeDayOut.get(numberDay),timeOut.get(numberDay)));
