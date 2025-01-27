@@ -119,6 +119,9 @@ public class Parser {
                 try {
                     WebElement purchaseButton = item.findElement(By.cssSelector(".catalog-section-item-name-wrapper"));
                     String purchaseLink = purchaseButton.getAttribute("href");
+                    if (purchaseLink == "/catalog/cruises-from-kazan/2315710/"){
+                        return;
+                    }
                     ((JavascriptExecutor) webDriver).executeScript("window.open('" + purchaseLink + "', '_blank');");
                     String originalTab = webDriver.getWindowHandle();
                     Set<String> allTabs = webDriver.getWindowHandles();

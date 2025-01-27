@@ -10,10 +10,10 @@ public class Main {
     public static void main(String[] args) throws IOException {
         System.setProperty("webdriver.chrome.driver", "geckodriver-v0.35.0-win64\\geckodriver.exe");
 
-        CeasarTravel();
+//        CeasarTravel();
 //        WhiteSwan();
 //        volgaPlace();
-//        sCruises();
+        sCruises();
 //        mosturFlot();
 //        vodohod();
 //        doninturflot();
@@ -78,19 +78,23 @@ public class Main {
         S_Cruises sCruises = new S_Cruises();
         String[] urlsSozv = {
                 "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-rossia_/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=",
-//                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-ogni_bolshogo_goroda/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=",
-//                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-little_prince/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=",
-//                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-simfonija_severa/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=",
-//                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-lebedinoye_ozero/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=",
-//                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-lunnaya_sonata/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=",
-//                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-severnaya_skazka/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=",
-//                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-nekrasov/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=",
-//                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-benua/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=",
-//                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-imperia/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=",
-//                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-admiral/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=",
-//                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-ms_century_paragon/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=",
-//                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-steigenberger_omar_el_khayam/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=",
-//                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-iberotel_amara/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1="
+                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-rossia_/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=2",
+                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-ogni_bolshogo_goroda/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=",
+                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-ogni_bolshogo_goroda/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=2",
+                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-little_prince/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=",
+                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-little_prince/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=2",
+                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-simfonija_severa/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=",
+                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-simfonija_severa/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=2",
+                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-lebedinoye_ozero/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=",
+                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-lebedinoye_ozero/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=2",
+                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-lunnaya_sonata/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=",
+                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-lunnaya_sonata/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=2",
+                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-severnaya_skazka/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=",
+                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-nekrasov/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=",
+                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-nekrasov/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=2",
+                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-benua/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=",
+                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-benua/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1=2",
+                "https://s-cruises.com/cruises/filter/date_cruise_start-from-01.01.2025-to-10.11.2025/date_cruise_end-from-15.11.2024-to-13.11.2025/numbers_of_days-from-3-to-31/ships-is-imperia/count_persont-from-0/apply/?Pagen_1=2&PAGEN_1="
         };
         for (String url : urlsSozv) {
             sCruises.s_cruises(url);

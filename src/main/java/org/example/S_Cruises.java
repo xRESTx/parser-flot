@@ -17,8 +17,8 @@ public class S_Cruises {
     public void s_cruises(String url) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("s-cruises.txt",true))){
             List<String> item = new ArrayList<>();
-            int page = 1;
-            String use_url = url + String.valueOf(page);
+//            int page = 1;
+            String use_url = url;
             boolean bool;
             do {
                 Document doc = Jsoup.connect(use_url).get();
@@ -33,12 +33,13 @@ public class S_Cruises {
                     c++;
                 }
                 System.out.println(c);
-                Element paginationItem = doc.selectFirst(".pagination__item.next.disabled");
-                if(paginationItem == null){
-                    page ++;
-                    use_url = url + String.valueOf(page);
-                    bool = true;
-                }
+//                Element paginationItem = doc.selectFirst(".pagination__item.next.disabled");
+//                if(paginationItem == null){
+//                    page ++;
+//                    use_url = url + String.valueOf(page);
+//                    bool = true;
+//                }
+
             }while (bool);
             String regexCity = "(.*?)\\s*(\\d{1,2}:\\d{2})\\s*-\\s*(\\d{1,2}:\\d{2})";
             String regexDate = "(\\d{2} \\p{IsAlphabetic}+)";
@@ -94,7 +95,7 @@ public class S_Cruises {
                     Matcher matcherDate = patternDate.matcher(it.text());
                     if(matcherDate.find()){
                         date.add(matcherDate.group(0));
-//                            System.out.println(matcherDate.group(1));
+                            System.out.println(matcherDate.group(1));
                         checkDouble = false;
                     }else if(matcherCity.find()){
                         if(checkDouble){
@@ -104,7 +105,7 @@ public class S_Cruises {
                         city.add(matcherCity.group(1));
 //                        System.out.println(matcherCity.group(2));
                         end.add(matcherCity.group(2));
-                        System.out.println(start.get(0));
+//                        System.out.println(start.get(0));
 //                        System.out.println(matcherCity.group(3));
                         start.add(matcherCity.group(3));
 
