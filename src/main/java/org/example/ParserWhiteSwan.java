@@ -97,7 +97,15 @@ public class ParserWhiteSwan {
                         continue;
                     }
                     city.add(cityAndTimeParts[0]);
-                    String timeRange = cityAndTimeParts[1].replace("отправление ", "").replace("прибытие ","");
+                    for(String s : cityAndTimeParts)
+                        System.out.println(s);
+                    String timeRange ="";
+                    if(cityAndTimeParts.length == 2){
+                        timeRange = cityAndTimeParts[1].replace("отправление ", "").replace("прибытие ","");
+                    }
+                    else{
+                        continue;
+                    }
 
                     // Вывод данных
                     System.out.println("Дата: " + timeDay.get(ch));
