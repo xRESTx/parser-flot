@@ -8,6 +8,8 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.example.Main.vodohod;
+
 public class CruiseParserGUI {
 
     public static void main(String[] args) {
@@ -43,6 +45,8 @@ public class CruiseParserGUI {
         sputnikButton.setPreferredSize(buttonSize);
         JButton gamaButton = new JButton("Parse Gama");
         gamaButton.setPreferredSize(buttonSize);
+        JButton vodohodButton = new JButton("Parse Vodohod");
+        vodohodButton.setPreferredSize(buttonSize);
 
         buttonPanel.add(volgaButton);
         buttonPanel.add(whiteSwanButton);
@@ -50,6 +54,7 @@ public class CruiseParserGUI {
         buttonPanel.add(azuritButton);
         buttonPanel.add(sputnikButton);
         buttonPanel.add(gamaButton);
+        buttonPanel.add(vodohodButton);
 
         // Область для отображения логов
         JTextArea logArea = new JTextArea();
@@ -174,6 +179,20 @@ public class CruiseParserGUI {
                     scrollToBottom(logArea);
                 });
                 azuritButton.setEnabled(true);
+            }).start();
+        });
+
+        vodohodButton.addActionListener(e -> {
+            vodohodButton.setEnabled(false);
+            logArea.append("Starting parsing Vodohod...\n");
+            scrollToBottom(logArea);
+            new Thread(() -> {
+                vodohod();
+                SwingUtilities.invokeLater(() -> {
+                    logArea.append("Parsing Azurit Travel completed.\n");
+                    scrollToBottom(logArea);
+                });
+                vodohodButton.setEnabled(true);
             }).start();
         });
 

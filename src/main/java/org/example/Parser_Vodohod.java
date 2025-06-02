@@ -5,6 +5,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -15,7 +16,10 @@ import java.util.Set;
 
 public class Parser_Vodohod {
     public void Course(String url, String fileName) {
+        FirefoxOptions options = new FirefoxOptions();
+        options.addArguments("--headless");
         WebDriver webDriver = new FirefoxDriver();
+        System.out.println("Start");
         Format format = new Format();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName,true))) {
             webDriver.get(url);

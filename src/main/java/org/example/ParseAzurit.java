@@ -169,5 +169,4 @@ public class ParseAzurit {
             System.out.println("Strange, My Lord");
         }
     }
-
 }

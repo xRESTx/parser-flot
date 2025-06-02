@@ -8,14 +8,12 @@ import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        System.setProperty("webdriver.chrome.driver", "geckodriver-v0.35.0-win64\\geckodriver.exe");
-
 //        CeasarTravel();
 //        WhiteSwan();
 //        volgaPlace();
-        sCruises();
+//        sCruises();
 //        mosturFlot();
-//        vodohod();
+        vodohod();
 //        doninturflot();
 //        gamma();
         //sCruises();
