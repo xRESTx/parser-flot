@@ -27,8 +27,12 @@ public class Recept_parse {
 //            webDriver.get("https://www.russianfood.com/recipes/bytype/?fid=131&page=2#rcp_list");
 
 
-            webDriver.get("https://www.russianfood.com/recipes/bytype/?fid=142");
+//            webDriver.get("https://www.russianfood.com/recipes/bytype/?fid=142");
 //            webDriver.get("https://www.russianfood.com/recipes/bytype/?fid=143&page=2#rcp_list");
+
+//            webDriver.get("https://www.russianfood.com/recipes/bytype/?fid=152");
+            webDriver.get("https://www.russianfood.com/recipes/bytype/?fid=152&page=2#rcp_list");
+
             System.out.println("Lets GO");
             List<WebElement> elements = webDriver.findElements(By.className("in_seen"));
             System.out.println(elements.size());
