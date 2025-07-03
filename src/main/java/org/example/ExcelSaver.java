@@ -8,6 +8,41 @@ import java.util.List;
 
 public class ExcelSaver {
 
+    public static void FormatMosturflotStopFromExcel(String cruiseName, String purchaseLink, List<String> city, List<String> timeIn, List<String> timeOut, String filePath) throws IOException {
+        File file = new File(filePath);
+        Workbook workbook;
+        Sheet sheet;
+        int rowNum;
+
+        if (file.exists()) {
+            try (FileInputStream fis = new FileInputStream(file)) {
+                workbook = new XSSFWorkbook(fis);
+                sheet = workbook.getSheetAt(0);
+                rowNum = sheet.getLastRowNum() + 1;
+            }
+        } else {
+            workbook = new XSSFWorkbook();
+            sheet = workbook.createSheet("Маршрут");
+            rowNum = 0;
+        }
+
+        Row header = sheet.createRow(rowNum++);
+        header.createCell(0).setCellValue(cruiseName);
+        header.createCell(1).setCellValue(purchaseLink);
+        header.createCell(2).setCellValue(city.getFirst());
+        header.createCell(3).setCellValue("");
+        header.createCell(4).setCellValue(timeOut.getFirst());
+        for (int i = 1; i < city.size() && i < timeIn.size() && i < timeOut.size(); i++) {
+            Row row = sheet.createRow(rowNum++);
+            row.createCell(2).setCellValue(city.get(i));
+            row.createCell(3).setCellValue(timeIn.get(i-1));
+            row.createCell(4).setCellValue(timeOut.get(i));
+        }
+        try (FileOutputStream fos = new FileOutputStream(filePath)) {
+            workbook.write(fos);
+        }
+        workbook.close();
+    }
     public static void saveIngredientsToExcel(List<String> ingredients, String dishName, String filePath) {
         Workbook workbook;
         Sheet sheet;
