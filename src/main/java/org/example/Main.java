@@ -1,7 +1,5 @@
 package org.example;
 
-import org.apache.poi.ss.formula.atp.Switch;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +11,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         String site = null;
         String output = null;
+        String yearSuffix = null;
         for(String arg : args){
             if (arg.startsWith("--site=")) {
                 site = arg.substring("--site=".length());
@@ -23,6 +22,9 @@ public class Main {
             if (arg.startsWith("--output=")) {
                 output = arg.substring("--output=".length());
             }
+            if (arg.startsWith("--year=")) {
+                yearSuffix = arg.substring("--tab=".length());
+            }
         }
 
         switch (site){
@@ -31,7 +33,7 @@ public class Main {
                 break;
             }
             case "whiteSwan" : {
-                whiteSwan();
+                whiteSwan(yearSuffix);
                 break;
             }
             case "volgaPlace" : {
@@ -88,14 +90,15 @@ public class Main {
         }
     }
 
-    static public void whiteSwan(){
+    static public void whiteSwan(String tabSuffix){
         ParserWhiteSwan parserWhiteSwan = new ParserWhiteSwan();
         String[] urls = {
                 "https://www.bely-lebed.ru/ship.asp?t=147",
-                "https://www.bely-lebed.ru/ship.asp?t=132"
+                "https://www.bely-lebed.ru/ship.asp?t=132",
+                "https://www.bely-lebed.ru/ship.asp?t=131"
         };
         for (String url : urls){
-            parserWhiteSwan.Course(url,"whiteSwan.txt");
+            parserWhiteSwan.Course(url,"whiteSwan.txt", tabSuffix);
         }
     }
     static public void volgaPlace(){

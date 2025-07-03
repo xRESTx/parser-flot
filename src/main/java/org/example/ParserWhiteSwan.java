@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 
 public class ParserWhiteSwan {
 
-    public void Course(String url, String fileName) throws RuntimeException {
+    public void Course(String url, String fileName, String yearSuffix) throws RuntimeException {
         FirefoxOptions options = new FirefoxOptions();
         options.addArguments("--headless");
         WebDriver webDriver = new FirefoxDriver(options);
@@ -34,20 +34,29 @@ public class ParserWhiteSwan {
             List<WebElement> rows = raspship.findElements(By.tagName("tr"));
             WebElement teplohod = webDriver.findElement(By.tagName("h1"));
             String nameTeplohod = teplohod.getText();
-            List<String> hrefs = new ArrayList<>();
-            for (WebElement row : rows) {
+            List<String[]> hrefWithTabList = new ArrayList<>();
 
-                // Извлечение ссылок из строки
+            for (WebElement row : rows) {
                 List<WebElement> links = row.findElements(By.tagName("a"));
                 for (WebElement link : links) {
-                    String href = link.getAttribute("href") + "#tabs-2";
-                    if(!hrefs.contains(href)){
-                        hrefs.add(href);
-                        continue;
+                    String baseHref = link.getAttribute("href");
+                    if (yearSuffix == null) {
+                        hrefWithTabList.add(new String[]{baseHref, "tabs-1"});
+                        hrefWithTabList.add(new String[]{baseHref, "tabs-2"});
+                    } else if ("this".equalsIgnoreCase(yearSuffix)) {
+                        hrefWithTabList.add(new String[]{baseHref, "tabs-1"});
+                    } else if ("next".equalsIgnoreCase(yearSuffix)) {
+                        hrefWithTabList.add(new String[]{baseHref, "tabs-2"});
                     }
                 }
             }
-            for(String href : hrefs){
+
+
+            for (String[] hrefWithTab : hrefWithTabList) {
+
+                String baseHref = hrefWithTab[0];
+                String tabId = hrefWithTab[1];
+                String fullHref = baseHref + "#" + tabId;
 
                 ArrayList<String> city = new ArrayList<>();
                 ArrayList<String> timeIn = new ArrayList<>();
@@ -56,7 +65,7 @@ public class ParserWhiteSwan {
 
                 timeIn.add("");
 
-                ((JavascriptExecutor) webDriver).executeScript("window.open('" + href + "', '_blank');");
+                ((JavascriptExecutor) webDriver).executeScript("window.open('" + fullHref  + "', '_blank');");
                 String originalTab = webDriver.getWindowHandle();
                 Set<String> allTabs = webDriver.getWindowHandles();
                 for (String tab : allTabs) {
@@ -65,10 +74,10 @@ public class ParserWhiteSwan {
                         break;
                     }
                 }
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("tabs-2")));
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(tabId)));
                 Thread.sleep(300);
 
-                WebElement main = webDriver.findElement(By.id("tabs-2"));
+                WebElement main = webDriver.findElement(By.id(tabId));
                 WebElement firstRow = main.findElement(By.className("eks"));
                 WebElement tbody = firstRow.findElement(By.tagName("tbody"));
                 List<WebElement> cells = tbody.findElements(By.tagName("tr"));
@@ -81,14 +90,15 @@ public class ParserWhiteSwan {
                     // Дата (из первой ячейки)
                     int intCell = 0;
                     String rawDate;
-                    if(cellsq.size()==3){
+                    String year = "tabs-1".equals(tabId) ? "2025" : "2026";
+
+                    if (cellsq.size() == 3) {
                         rawDate = cellsq.get(intCell).getText();
-                        timeDay.add(rawDate.split("\n")[1]+".2025");
+                        timeDay.add(rawDate.split("\n")[1] + "." + year);
                         intCell++;
                     } else {
                         timeDay.add(timeDay.getLast());
                     }
-
 
                     // Город и время (из второй ячейки)
                     String rawCityAndTime = cellsq.get(intCell).getText();
@@ -130,7 +140,7 @@ public class ParserWhiteSwan {
                 ch++;
                 }
                 timeOut.add("");
-                format.FormatVodohodStopFromTXT(nameTeplohod, href, timeDay, city, timeIn, timeOut, writer);
+                format.FormatVodohodStopFromTXT(nameTeplohod, fullHref , timeDay, city, timeIn, timeOut, writer);
                 webDriver.close();
                 webDriver.switchTo().window(originalTab);
             }
