@@ -24,7 +24,7 @@ public class Main {
                 output = arg.substring("--output=".length());
             }
         }
-
+        gammaInfo();
         switch (site){
             case "ceasarTravel" : {
                 ceasarTravel();
@@ -65,7 +65,6 @@ public class Main {
             default:
                 throw new IllegalStateException("Unexpected value: " + site);
         }
-
 
 //        ceasarTravel();
 //        whiteSwan();
@@ -200,7 +199,7 @@ public class Main {
                 "https://gama-nn.ru/cruise/okt-revolution/"
         };
         for (String url : urlsGama) {
-            parserGama.CourseInfo(url,"gammaInfo.txt");
+            parserGama.CourseInfo(url,"gammaInfo.xlsx");
         }
     }
     static public void doninturflot(){

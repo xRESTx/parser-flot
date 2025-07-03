@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.poi.ss.formula.functions.T;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -75,12 +76,12 @@ public class Parser_gama {
             webDriver.quit();
         }
     }
+
     public void CourseInfo(String url, String fileName){
         FirefoxOptions options = new FirefoxOptions();
-//        options.addArguments("--headless");
+        options.addArguments("--headless");
         WebDriver webDriver = new FirefoxDriver(options);
         WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
-        Format format = new Format();
         try {
             File directory = new File("./Gama");
             if(!directory.exists()) {
@@ -90,128 +91,134 @@ public class Parser_gama {
             }
             webDriver.get(url);
             System.out.println("Okay, let's go");
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("pj-search")));
-            List<WebElement> cruises = webDriver.findElements(By.className("in-actual"));
 
-            String regex = "(\\d{2}\\.\\d{2}\\.\\d{4})\\sв\\s(\\d{2}:\\d{2})";
-            for(WebElement cruise : cruises){
-                String nameTeplohod = cruise.findElement(By.className("in-ship-txt")).getText();
-                ArrayList<String> city = new ArrayList<>();
-                ArrayList<String> timeIn = new ArrayList<>();
-                timeIn.add("");
-                ArrayList<String> timeOut = new ArrayList<>();
-                ArrayList<String> timeDayIn = new ArrayList<>();
-                timeDayIn.add("");
-                ArrayList<String> timeDayOut = new ArrayList<>();
+            WebElement mainPage = webDriver.findElement(By.className("thmx_page__w_ship"));
 
-                List<WebElement> info = cruise.findElements(By.cssSelector(".in-btn-stock.mt-1"));
-                if(info.isEmpty()){
-                    continue;
-                }
-                WebElement hrefInfo = cruise.findElement(By.cssSelector(".in-btn-stock a"));
-                String hrefValue = hrefInfo.getAttribute("href");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ship_town_selector")));
+            WebElement cityPage = mainPage.findElement(By.id("ship_town_selector"));
 
-                WebElement click = info.getFirst().findElement(By.cssSelector(".btn.btn-sm.btn-gama-action"));
-                click.click();
+            ((JavascriptExecutor) webDriver).executeScript(
+                    "window.scrollTo(0, arguments[0].getBoundingClientRect().top + window.pageYOffset - 150);",
+                    cityPage
+            );
+            Thread.sleep(1000);
 
-                WebElement mainBlank = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("pj-tour")));
-                List<WebElement> blanks = mainBlank.findElements(By.cssSelector(".mt-2.mb-4"));
-                boolean start = true;
-                for(WebElement blank : blanks){
-                    WebElement cityInfoWebEl = blank.findElement(By.cssSelector(".mt-1.mb-1.in-town"));
-                    city.add(cityInfoWebEl.getText());
-                    List<WebElement> times = blank.findElements(By.cssSelector(".in-date"));
-                    boolean departure = true;
-                    for(WebElement time : times){
-                        if(start && times.size()==1){
-                            start = false;
-                            String dayInfo = time.getText();
+            List<WebElement> cityList = cityPage.findElements(By.cssSelector(".m-1 button"));
 
-                            // Компилируем шаблон
-                            Pattern pattern = Pattern.compile(regex);
-                            Matcher matcher = pattern.matcher(dayInfo);
+            List<String> cruiseHref = new ArrayList<>();
 
-                            // Проверяем совпадения
-                            if (matcher.find()) {
-                                // Извлекаем дату и время
-                                timeDayOut.add(matcher.group(1));
-                                timeOut.add(matcher.group(2));
-                            } else {
-                                System.out.println("ERROR");
-                            }
-                            break;
-                        } else if(!start && times.size()==1){
-                            String dayInfo = time.getText();
+            for (WebElement city : cityList) {
+                city.click();
+                Thread.sleep(1000);
 
-                            // Компилируем шаблон
-                            Pattern pattern = Pattern.compile(regex);
-                            Matcher matcher = pattern.matcher(dayInfo);
+                WebElement monthPage = mainPage.findElement(By.className("_monthly"));
+                List<WebElement> monthButtons = monthPage.findElements(By.cssSelector(".m-1 button"));
+                int monthCount = monthButtons.size();
 
-                            // Проверяем совпадения
-                            if (matcher.find()) {
-                                // Извлекаем дату и время
-                                timeDayIn.add(matcher.group(1));
-                                timeIn.add(matcher.group(2));
-                            } else {
-                                System.out.println("ERROR");
-                            }
-                            break;
-                        }
-                        if(departure){
-                            departure = false;
-                            String dayInfo = time.getText();
-                            // Компилируем шаблон
-                            Pattern pattern = Pattern.compile(regex);
-                            Matcher matcher = pattern.matcher(dayInfo);
+                for (int i = 0; i < monthCount; i++) {
 
-                            // Проверяем совпадения
-                            if (matcher.find()) {
-                                // Извлекаем дату и время
-                                timeDayIn.add(matcher.group(1));
-                                timeIn.add(matcher.group(2));
-                            } else {
-                                System.out.println("Error");
-                            }
-                        } else {
-                            String dayInfo = time.getText();
-                            // Компилируем шаблон
-                            Pattern pattern = Pattern.compile(regex);
-                            Matcher matcher = pattern.matcher(dayInfo);
+                    monthPage = mainPage.findElement(By.className("_monthly"));
+                    monthButtons = monthPage.findElements(By.cssSelector(".m-1 button"));
 
-                            // Проверяем совпадения
-                            if (matcher.find()) {
-                                // Извлекаем дату и время
-                                timeDayOut.add(matcher.group(1));
-                                timeOut.add(matcher.group(2));
-                            } else {
-                                System.out.println("Error");
-                            }
-                        }
-                    }
-
-                }
-
-                WebElement closeWindow = webDriver.findElement(By.cssSelector(".modal-dialog.modal-lg.modal-dialog-centered"));
-                List<WebElement> closeButton = closeWindow.findElements(By.className("close"));
-                while (closeButton.isEmpty()){
-                    closeButton = closeWindow.findElements(By.className("close"));
-                    System.out.println(closeButton.size());
+                    WebElement month = monthButtons.get(i);
+                    month.click();
                     Thread.sleep(200);
+                    List<WebElement> actualMonth = mainPage.findElements(By.className("thmx_cruise_list_wide"));
+                    List<WebElement> actualCruises = actualMonth.get(i).findElements(By.className("thmx_cruise_item"));
+                    for (WebElement cruise : actualCruises){
+                        cruiseHref.add(cruise.findElement(By.cssSelector("a.btn-gradient-warning")).getAttribute("href"));
+                    }
                 }
-                closeButton.getFirst().click();
-                timeOut.add("");
-                timeDayOut.add("");
-
-                System.out.println(timeDayOut.size() + "" + timeDayIn.size() + "" + timeIn.size()+ "" + timeOut.size()+"" + city.size());
-                format.FormatGammaInfoFromTXT(nameTeplohod,hrefValue,city,timeIn,timeOut,timeDayOut,timeDayIn);
-                Thread.sleep(100);
             }
-        } catch (IOException | InterruptedException e) {
+
+            String cruiseName = webDriver.findElement(By.cssSelector("h1.b")).getText();
+
+            String originalWindow = webDriver.getWindowHandle();
+
+            for (String cruise : cruiseHref) {
+                ((JavascriptExecutor) webDriver).executeScript("window.open()");
+                Set<String> allWindows = webDriver.getWindowHandles();
+
+                for (String window : allWindows) {
+                    if (!window.equals(originalWindow)) {
+                        webDriver.switchTo().window(window);
+                        webDriver.get(cruise);
+                        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("_header")));
+                        WebElement thmx_tabs = webDriver.findElement(By.className("thmx_tabs"));
+                        WebElement header = thmx_tabs.findElement(By.className("_header"));
+                        List<WebElement> tab = header.findElements(By.className("_tab"));
+                        tab.get(1).click();
+
+                        List<String> city = new ArrayList<>();
+                        List<String> timeIn = new ArrayList<>();
+                        List<String> timeOut = new ArrayList<>();
+
+                        thmx_tabs = webDriver.findElement(By.className("thmx_tabs"));
+                        WebElement content = thmx_tabs.findElement(By.className("_content"));
+                        List<WebElement> frame = content.findElements(By.className("_frame"));
+
+                        List<WebElement> mb_3 = frame.get(1).findElements(By.className("mb-3"));
+                        boolean first = true;
+                        for (int i = 0; i < mb_3.size(); i++) {
+                            WebElement d_flex = mb_3.get(i).findElement(By.className("d-flex"));
+                            if (i == 0 || i == mb_3.size()-1) {
+                                city.add(d_flex.findElement(By.cssSelector("h3.mb-0")).getText());
+
+                                List<WebElement> innerDivs = d_flex.findElements(By.xpath(".//div[3]/div[2]/div"));
+                                Pattern pattern = Pattern.compile("\\d{2}\\.\\d{2}\\.\\d{4} \\d{2}:\\d{2}");
+
+                                for (WebElement div : innerDivs) {
+                                    String text = div.getText();
+                                    Matcher matcher = pattern.matcher(text);
+
+                                    if (matcher.find()) {
+                                        String dateTime = matcher.group();
+                                        if (first) {
+                                            timeOut.add(dateTime);
+                                            first = false;
+                                        } else {
+                                            timeIn.add(dateTime);
+                                        }
+                                    }
+                                }
+                            } else {
+                                city.add(d_flex.findElement(By.cssSelector("h3.mb-0")).getText());
+                                List<WebElement> dateDivs = d_flex.findElements(By.cssSelector("div > div > div"));
+
+                                List<WebElement> timeCandidates = new ArrayList<>();
+
+                                for (WebElement div : dateDivs) {
+                                    String text = div.getText();
+                                    if (text.matches("\\d{2}\\.\\d{2}\\.\\d{4} \\d{2}:\\d{2}")) {
+                                        timeCandidates.add(div);
+                                    }
+                                }
+
+                                int size = timeCandidates.size();
+                                if (size >= 2) {
+                                    String arrivalTime = timeCandidates.get(size - 2).getText();
+                                    String departureTime = timeCandidates.get(size - 1).getText();
+                                    timeIn.add(arrivalTime);
+                                    timeOut.add(departureTime);
+                                }
+                            }
+                        }
+                        timeOut.add("");
+                        timeIn.add("");
+                        ExcelSaver.FormatMosturflotStopFromExcel(cruiseName, cruise, city, timeIn, timeOut, fileName);
+                        System.out.println(cruiseName + " " + city.size() + " " + timeOut.size()+ " " + timeIn.size() +" " + cruise);
+                        webDriver.close();
+                        webDriver.switchTo().window(originalWindow);
+                    }
+                }
+            }
+
+        } catch (InterruptedException | IOException e) {
             throw new RuntimeException(e);
         } finally {
             webDriver.manage().deleteAllCookies();
             webDriver.quit();
-            System.out.println("Strange, My Lord");
+//            System.out.println("Strange, My Lord");
         }
     }
 }
