@@ -1,5 +1,7 @@
 package org.example;
 
+import org.apache.poi.ss.formula.atp.Switch;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,36 +9,93 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
-//        CeasarTravel();
-//        WhiteSwan();
+        String site = null;
+        String output = null;
+        for(String arg : args){
+            if (arg.startsWith("--site=")) {
+                site = arg.substring("--site=".length());
+            } else{
+                System.out.println("Input correct site name");
+                return;
+            }
+            if (arg.startsWith("--output=")) {
+                output = arg.substring("--output=".length());
+            }
+        }
+
+        switch (site){
+            case "ceasarTravel" : {
+                ceasarTravel();
+                break;
+            }
+            case "whiteSwan" : {
+                whiteSwan();
+                break;
+            }
+            case "volgaPlace" : {
+                volgaPlace();
+                break;
+            }
+            case "sCruises" : {
+                sCruises();
+                break;
+            }
+            case "mosturFlot" : {
+                mosturFlot();
+                break;
+            }
+            case "vodohod" : {
+                vodohod();
+                break;
+            }
+            case "doninturflot" : {
+                doninturflot();
+                break;
+            }
+            case "gamma" : {
+                gammaInfo();
+                break;
+            }
+            case null:{
+                System.out.println("Site not found");
+                return;
+            }
+            default:
+                throw new IllegalStateException("Unexpected value: " + site);
+        }
+
+
+//        ceasarTravel();
+//        whiteSwan();
 //        volgaPlace();
 //        sCruises();
 //        mosturFlot();
-        vodohod();
+//        vodohod();
 //        doninturflot();
 //        gamma();
-        //sCruises();
+//        sCruises();
     }
-    static public void CeasarTravel(){
+    static public void ceasarTravel(){
         ParseCaesarTravel parseCaesarTravel = new ParseCaesarTravel();
         String[] urls = {
                 "https://www.cezar-travel.ru/president-ship",
                 "https://www.cezar-travel.ru/muromets-ship"
         };
         for (String url : urls){
-            parseCaesarTravel.Course(url,"CeasarTravel.txt");
+            parseCaesarTravel.Course(url,"ceasarTravel.txt");
         }
     }
 
-    static public void WhiteSwan(){
+    static public void whiteSwan(){
         ParserWhiteSwan parserWhiteSwan = new ParserWhiteSwan();
         String[] urls = {
                 "https://www.bely-lebed.ru/ship.asp?t=147",
                 "https://www.bely-lebed.ru/ship.asp?t=132"
         };
         for (String url : urls){
-            parserWhiteSwan.Course(url,"WhiteSwan.txt");
+            parserWhiteSwan.Course(url,"whiteSwan.txt");
         }
     }
     static public void volgaPlace(){

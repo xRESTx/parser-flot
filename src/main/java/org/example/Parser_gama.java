@@ -77,7 +77,7 @@ public class Parser_gama {
     }
     public void CourseInfo(String url, String fileName){
         FirefoxOptions options = new FirefoxOptions();
-        options.addArguments("--headless");
+//        options.addArguments("--headless");
         WebDriver webDriver = new FirefoxDriver(options);
         WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
         Format format = new Format();
