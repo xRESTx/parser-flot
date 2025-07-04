@@ -22,11 +22,10 @@ import java.util.regex.Pattern;
 public class Parser_SputnikGermes {
     public void Course(String url, String fileName) throws RuntimeException {
         FirefoxOptions options = new FirefoxOptions();
-        options.addArguments("--headless");
+//        options.addArguments("--headless");
         WebDriver webDriver = new FirefoxDriver(options);
         WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
-        Format format = new Format();
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName,true))) {
+        try {
             webDriver.get(url);
             System.out.println("Okay, let's go");
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("blockfind")));
@@ -85,11 +84,14 @@ public class Parser_SputnikGermes {
                     timeIn.add(tds.get(2).getText());
                     String timeOrDay = tds.get(4).getText();
 
-                    Pattern pattern = Pattern.compile("\\(\\d{2}\\.\\d{2}\\)");
+                    Pattern pattern = Pattern.compile("(\\d{2}:\\d{2})\\s*\\((\\d{2}\\.\\d{2})\\)");
                     Matcher matcher = pattern.matcher(timeOrDay);
                     if(matcher.find()){
-                        timeDay.add(tds.get(4).getText().replaceAll("[()]","")+".2025");
-                        timeOut.add("");
+                        String time = matcher.group(1);
+                        String date = matcher.group(2) + ".2025";
+
+                        timeOut.add(time);
+                        timeDay.add(date);
                     }
                     else{
                         timeOut.add(tds.get(4).getText());
@@ -101,7 +103,10 @@ public class Parser_SputnikGermes {
                     }
                 }
                 System.out.println(timeDay.size() + "" + timeIn.size()+ "" + timeOut.size()+"" + city.size());
-                format.FormatSputnikGermesFromTXT(nameTeplohod, href, timeDay, city, timeIn, timeOut, writer);
+                for (String time : timeIn){
+                    System.out.println(time);
+                }
+                ExcelSaver.FormatSputnikGermesFromTXT(nameTeplohod, href, timeDay, city, timeIn, timeOut, fileName);
                 webDriver.close();
                 webDriver.switchTo().window(originalTab);
             }

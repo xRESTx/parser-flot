@@ -15,9 +15,6 @@ public class Main {
         for(String arg : args){
             if (arg.startsWith("--site=")) {
                 site = arg.substring("--site=".length());
-            } else{
-                System.out.println("Input correct site name");
-                return;
             }
             if (arg.startsWith("--output=")) {
                 output = arg.substring("--output=".length());
@@ -26,25 +23,26 @@ public class Main {
                 yearSuffix = arg.substring("--tab=".length());
             }
         }
-        gammaInfo();
         switch (site){
-            case "ceasarTravel" : {
+            case "ceasartravel" : {
+                System.out.println("ceasarTravel started");
                 ceasarTravel();
                 break;
             }
-            case "whiteSwan" : {
+            case "whiteswan" : {
+                System.out.println("whiteswan started");
                 whiteSwan(yearSuffix);
                 break;
             }
-            case "volgaPlace" : {
+            case "volgaplace" : {
                 volgaPlace();
                 break;
             }
-            case "sCruises" : {
+            case "scruises" : {
                 sCruises();
                 break;
             }
-            case "mosturFlot" : {
+            case "mosturflot" : {
                 mosturFlot();
                 break;
             }
@@ -57,7 +55,13 @@ public class Main {
                 break;
             }
             case "gamma" : {
+                System.out.println("gamma started");
                 gammaInfo();
+                break;
+            }
+            case "sputnitgermes" : {
+                System.out.println("sputnitGermes started");
+                sputnikGermes(output);
                 break;
             }
             case null:{
@@ -88,7 +92,20 @@ public class Main {
             parseCaesarTravel.Course(url,"ceasarTravel.txt");
         }
     }
+    static public void sputnikGermes(String fileName){
+        Parser_SputnikGermes parserSputnikGermes = new Parser_SputnikGermes();
+        String[] urls = {
+            "https://river.sputnik-germes.ru/index.php?option=com_content&view=article&id=9&aid=1000&t=49&price1=100&price2=200000&day1=01-04-25&day2=01-11-25&dlitfrom=01&dlitto=30&city=0&mc=&acts=&preset=11111",
+            "https://river.sputnik-germes.ru/index.php?option=com_content&view=article&id=9&aid=1000&t=2&price1=100&price2=200000&day1=01-04-25&day2=01-11-25&dlitfrom=01&dlitto=30&city=0&mc=&acts=&preset=11111",
+            "https://river.sputnik-germes.ru/index.php?option=com_content&view=article&id=9&aid=1000&t=128&price1=100&price2=200000&day1=01-04-25&day2=01-11-25&dlitfrom=01&dlitto=30&city=0&mc=&acts=&preset=11111",
+            "https://river.sputnik-germes.ru/index.php?option=com_content&view=article&id=9&aid=1000&t=53&price1=100&price2=200000&day1=01-04-25&day2=01-11-25&dlitfrom=01&dlitto=30&city=0&mc=&acts=&preset=11111"
+        };
 
+        for (String url : urls){
+            parserSputnikGermes.Course(url,fileName);
+        }
+
+    }
     static public void whiteSwan(String tabSuffix){
         ParserWhiteSwan parserWhiteSwan = new ParserWhiteSwan();
         String[] urls = {
@@ -160,35 +177,6 @@ public class Main {
         }
     }
 
-
-
-    static public void gamma(){
-        Parser_gama parserGama = new Parser_gama();
-        String[] urlsGama = {
-                "https://gama-nn.ru/booking/tours/pts149pcc84593689/",
-                "https://gama-nn.ru/booking/tours/pts148pcc29542278/",
-                "https://gama-nn.ru/booking/tours/pts14pcc13714655/",
-                "https://gama-nn.ru/booking/tours/pts13pcc38234936/",
-                "https://gama-nn.ru/booking/tours/pts8pcc36673453/",
-                "https://gama-nn.ru/booking/tours/pts5pcc52784997/",
-                "https://gama-nn.ru/booking/tours/pts95pcc25571565/",
-                "https://gama-nn.ru/booking/tours/pts84pcc82125868/",
-                "https://gama-nn.ru/booking/tours/pts1pcc17213891/",
-                "https://gama-nn.ru/booking/tours/pts42pcc54817396/",
-                "https://gama-nn.ru/booking/tours/pts2pcc55564253/",
-                "https://gama-nn.ru/booking/tours/pts50pcc79485183/",
-                "https://gama-nn.ru/booking/tours/pts39pcc72195411/",
-                "https://gama-nn.ru/booking/tours/pts11pcc55549257/",
-                "https://gama-nn.ru/booking/tours/pts52pcc36118367/",
-                "https://gama-nn.ru/booking/tours/pts12pcc42788147/",
-                "https://gama-nn.ru/booking/tours/pts64pcc94343936/",
-                "https://gama-nn.ru/booking/tours/pts7pcc36112675/",
-                "https://gama-nn.ru/booking/tours/pts4pcc18777798/"
-        };
-        for (String url : urlsGama) {
-            parserGama.Course(url);
-        }
-    }
     static public void gammaInfo(){
         Parser_gama parserGama = new Parser_gama();
         String[] urlsGama = {
