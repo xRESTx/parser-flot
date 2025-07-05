@@ -41,10 +41,10 @@ public class ParserWhiteSwan {
                 for (WebElement link : links) {
                     String baseHref = link.getAttribute("href");
                     if (yearSuffix == null) {
-                        hrefWithTabList.add(new String[]{baseHref, "tabs-1"});
+                        hrefWithTabList.add(new String[]{baseHref, "tabs"});
                         hrefWithTabList.add(new String[]{baseHref, "tabs-2"});
                     } else if ("this".equalsIgnoreCase(yearSuffix)) {
-                        hrefWithTabList.add(new String[]{baseHref, "tabs-1"});
+                        hrefWithTabList.add(new String[]{baseHref, "tabs"});
                     } else if ("next".equalsIgnoreCase(yearSuffix)) {
                         hrefWithTabList.add(new String[]{baseHref, "tabs-2"});
                     }
@@ -56,7 +56,7 @@ public class ParserWhiteSwan {
 
                 String baseHref = hrefWithTab[0];
                 String tabId = hrefWithTab[1];
-                String fullHref = baseHref + "#" + tabId;
+                String fullHref = baseHref + "#tabs-2";
 
                 ArrayList<String> city = new ArrayList<>();
                 ArrayList<String> timeIn = new ArrayList<>();
@@ -74,10 +74,10 @@ public class ParserWhiteSwan {
                         break;
                     }
                 }
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(tabId)));
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("tabs-2")));
                 Thread.sleep(300);
 
-                WebElement main = webDriver.findElement(By.id(tabId));
+                WebElement main = webDriver.findElement(By.id("tabs-2"));
                 WebElement firstRow = main.findElement(By.className("eks"));
                 WebElement tbody = firstRow.findElement(By.tagName("tbody"));
                 List<WebElement> cells = tbody.findElements(By.tagName("tr"));
@@ -90,7 +90,7 @@ public class ParserWhiteSwan {
                     // Дата (из первой ячейки)
                     int intCell = 0;
                     String rawDate;
-                    String year = "tabs-1".equals(tabId) ? "2025" : "2026";
+                    String year = "tabs".equals(tabId) ? "2025" : "2026";
 
                     if (cellsq.size() == 3) {
                         rawDate = cellsq.get(intCell).getText();

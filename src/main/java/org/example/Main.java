@@ -11,7 +11,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         String site = null;
         String output = null;
-        String yearSuffix = null;
+        String yearSuffix = "this";//null
+        whiteSwan(yearSuffix);
         for(String arg : args){
             if (arg.startsWith("--site=")) {
                 site = arg.substring("--site=".length());
