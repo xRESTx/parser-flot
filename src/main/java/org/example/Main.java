@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         String site = null;
         String output = null;
-        String yearSuffix = "this";//null
+        String yearSuffix = "this";//this-2025, next-2026
         whiteSwan(yearSuffix);
         for(String arg : args){
             if (arg.startsWith("--site=")) {
@@ -107,15 +107,22 @@ public class Main {
         }
 
     }
-    static public void whiteSwan(String tabSuffix){
+    static public void whiteSwan(String yearSuffix){
         ParserWhiteSwan parserWhiteSwan = new ParserWhiteSwan();
         String[] urls = {
                 "https://www.bely-lebed.ru/ship.asp?t=147",
                 "https://www.bely-lebed.ru/ship.asp?t=132",
                 "https://www.bely-lebed.ru/ship.asp?t=131"
         };
-        for (String url : urls){
-            parserWhiteSwan.Course(url,"whiteSwan.txt", tabSuffix);
+        for (String baseUrl : urls) {
+            if ("this".equals(yearSuffix)) {
+                parserWhiteSwan.Course(baseUrl + "#tabs-1", "whiteSwan.txt", "tabs-1");
+            } else if ("next".equals(yearSuffix)) {
+                parserWhiteSwan.Course(baseUrl + "#tabs-2", "whiteSwan.txt", "tabs-2");
+            } else {
+                parserWhiteSwan.Course(baseUrl + "#tabs-1", "whiteSwan.txt", "tabs-1");
+                parserWhiteSwan.Course(baseUrl + "#tabs-2", "whiteSwan.txt", "tabs-2");
+            }
         }
     }
     static public void volgaPlace(){

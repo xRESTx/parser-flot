@@ -21,42 +21,37 @@ import java.util.regex.Pattern;
 
 public class ParserWhiteSwan {
 
-    public void Course(String url, String fileName, String yearSuffix) throws RuntimeException {
+    public void Course(String url, String fileName, String yearSufffix) throws RuntimeException {
         FirefoxOptions options = new FirefoxOptions();
-        options.addArguments("--headless");
+//        options.addArguments("--headless");
         WebDriver webDriver = new FirefoxDriver(options);
         WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
         Format format = new Format();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName,true))) {
             webDriver.get(url);
             System.out.println("Okay, let's go");
-            WebElement raspship = webDriver.findElement(By.className("raspship"));
+            WebElement raspyear = webDriver.findElement(By.id(yearSufffix));
+            WebElement raspship = raspyear.findElement(By.className("raspship"));
             List<WebElement> rows = raspship.findElements(By.tagName("tr"));
             WebElement teplohod = webDriver.findElement(By.tagName("h1"));
             String nameTeplohod = teplohod.getText();
-            List<String[]> hrefWithTabList = new ArrayList<>();
+            List<String> hrefList = new ArrayList<>();
 
             for (WebElement row : rows) {
                 List<WebElement> links = row.findElements(By.tagName("a"));
                 for (WebElement link : links) {
-                    String baseHref = link.getAttribute("href");
-                    if (yearSuffix == null) {
-                        hrefWithTabList.add(new String[]{baseHref, "tabs"});
-                        hrefWithTabList.add(new String[]{baseHref, "tabs-2"});
-                    } else if ("this".equalsIgnoreCase(yearSuffix)) {
-                        hrefWithTabList.add(new String[]{baseHref, "tabs"});
-                    } else if ("next".equalsIgnoreCase(yearSuffix)) {
-                        hrefWithTabList.add(new String[]{baseHref, "tabs-2"});
+                    String href = link.getAttribute("href");
+                    if (href != null && !href.isEmpty()) {
+                        hrefList.add(href);
+                        break;
                     }
                 }
             }
 
 
-            for (String[] hrefWithTab : hrefWithTabList) {
+            for (String href : hrefList) {
 
-                String baseHref = hrefWithTab[0];
-                String tabId = hrefWithTab[1];
-                String fullHref = baseHref + "#tabs-2";
+                String fullHref = href + "#tabs-2";
 
                 ArrayList<String> city = new ArrayList<>();
                 ArrayList<String> timeIn = new ArrayList<>();
@@ -74,6 +69,7 @@ public class ParserWhiteSwan {
                         break;
                     }
                 }
+                try {
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("tabs-2")));
                 Thread.sleep(300);
 
@@ -90,7 +86,7 @@ public class ParserWhiteSwan {
                     // Дата (из первой ячейки)
                     int intCell = 0;
                     String rawDate;
-                    String year = "tabs".equals(tabId) ? "2025" : "2026";
+                    String year = "tabs-1".equals(yearSufffix) ? "2025" : "2026";
 
                     if (cellsq.size() == 3) {
                         rawDate = cellsq.get(intCell).getText();
@@ -141,6 +137,12 @@ public class ParserWhiteSwan {
                 }
                 timeOut.add("");
                 format.FormatVodohodStopFromTXT(nameTeplohod, fullHref , timeDay, city, timeIn, timeOut, writer);
+            } catch (org.openqa.selenium.NoSuchElementException e) {
+                // Если нет блока eks, просто записываем базовую информацию
+                System.out.println("WARN: Not found .eks for " + fullHref);
+                writer.write("Нет расписания для теплохода: " + nameTeplohod + " (" + fullHref + ")\n");
+                writer.flush();
+            }
                 webDriver.close();
                 webDriver.switchTo().window(originalTab);
             }
