@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         String site = null;
         String output = null;
-        String yearSuffix = "this";//this-2025, next-2026
+        String yearSuffix = null;//this-2025, next-2026
         whiteSwan(yearSuffix);
         for(String arg : args){
             if (arg.startsWith("--site=")) {

@@ -23,7 +23,7 @@ public class ParserWhiteSwan {
 
     public void Course(String url, String fileName, String yearSufffix) throws RuntimeException {
         FirefoxOptions options = new FirefoxOptions();
-//        options.addArguments("--headless");
+        options.addArguments("--headless");
         WebDriver webDriver = new FirefoxDriver(options);
         WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
         Format format = new Format();
@@ -33,8 +33,9 @@ public class ParserWhiteSwan {
             WebElement raspyear = webDriver.findElement(By.id(yearSufffix));
             WebElement raspship = raspyear.findElement(By.className("raspship"));
             List<WebElement> rows = raspship.findElements(By.tagName("tr"));
-            WebElement teplohod = webDriver.findElement(By.tagName("h1"));
-            String nameTeplohod = teplohod.getText();
+//            WebElement teplohod = webDriver.findElement(By.tagName("h1"));
+//            String nameTeplohod = teplohod.getText();
+            String nameTeplohod = "Название не найдено";
             List<String> hrefList = new ArrayList<>();
 
             for (WebElement row : rows) {
@@ -73,6 +74,22 @@ public class ParserWhiteSwan {
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("tabs-2")));
                 Thread.sleep(300);
 
+
+                    try {
+                        WebElement teplohodLabel = webDriver.findElement(By.xpath("//div[text()='Теплоход:']"));
+                        WebElement teplohodValue = teplohodLabel.findElement(By.xpath("following-sibling::div[@class='teploxod2']"));
+                        String rawText = teplohodValue.getText();
+
+                        int bracketIndex = rawText.indexOf(" (");
+                        if (bracketIndex != -1) {
+                            nameTeplohod = rawText.substring(0, bracketIndex).trim();
+                        } else {
+                            nameTeplohod = rawText.trim();
+                        }
+                    } catch (Exception e) {
+                        System.err.println("WARN: Not found teplohod name");
+                    }
+
                 WebElement main = webDriver.findElement(By.id("tabs-2"));
                 WebElement firstRow = main.findElement(By.className("eks"));
                 WebElement tbody = firstRow.findElement(By.tagName("tbody"));
@@ -86,7 +103,23 @@ public class ParserWhiteSwan {
                     // Дата (из первой ячейки)
                     int intCell = 0;
                     String rawDate;
-                    String year = "tabs-1".equals(yearSufffix) ? "2025" : "2026";
+//                    String year = "tabs-1".equals(yearSufffix) ? "2025" : "2026";
+                    String year = "2025";
+                    try {
+                        WebElement departureLabel = webDriver.findElement(By.xpath("//div[text()='Дата и время отправления:']"));
+                        WebElement departureValue = departureLabel.findElement(By.xpath("following-sibling::div[@class='i2']"));
+                        String departureText = departureValue.getText();
+                        Pattern yearPattern = Pattern.compile("(\\d{4})");
+                        Matcher yearMatcher = yearPattern.matcher(departureText);
+                        if (yearMatcher.find()) {
+                            year = yearMatcher.group(1);
+                        } else {
+                            System.err.println("WARN: Not found date");
+                        }
+                    } catch (Exception e) {
+                        System.err.println("Error in retrieving the year of departure: " + e.getMessage());
+                    }
+
 
                     if (cellsq.size() == 3) {
                         rawDate = cellsq.get(intCell).getText();
